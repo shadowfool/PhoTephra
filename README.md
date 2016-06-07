@@ -1,6 +1,5 @@
 # fotos
-
-https://waffle.io/Regal-Tephra/PhoTephra
+[![Stories in Ready](https://badge.waffle.io/Regal-Tephra/PhoTephra.svg?label=ready&title=Ready)](http://waffle.io/Regal-Tephra/PhoTephra)
 
 ##Table of Contents
 1. [Project Overview] (#Project-Overview)
