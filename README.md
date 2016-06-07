@@ -147,7 +147,7 @@ Or
     +-- /STYLE-GUIDE.md
     +-- /webpack.config.js
     
-## Teams <a name="Technologies"></a>
+## Teams <a name="Team"></a>
 ### Legacy Team 
 Scrum Master: [Felix Feng](https://github.com/felix2feng)
 
