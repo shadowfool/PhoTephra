@@ -1,6 +1,6 @@
 # fotos
 
-https://waffle.io/formidable-coffee/fotos
+https://waffle.io/Regal-Tephra/PhoTephra
 
 ##Table of Contents
 1. [Project Overview] (#Project-Overview)
@@ -90,7 +90,7 @@ Or
     
     ```
     $ npm start
-    ````
+    ```
 ## Technologies <a name="Technologies"></a>
 
 #### Front end: 
@@ -111,7 +111,7 @@ Or
 ![DBschema](https://raw.githubusercontent.com/formidable-coffee/fotos/master/server/db/Screen%20Shot%202016-05-30%20at%2015.16.35.png)
 
 ### Directory Layout
-    ```
+    
     +-- /client/
     |   +-- /app.jsx/
     |   +-- /arc.jsx/
@@ -146,8 +146,18 @@ Or
     +-- /package.json
     +-- /STYLE-GUIDE.md
     +-- /webpack.config.js
+    
+## Teams <a name="Technologies"></a>
+### Legacy Team 
+Scrum Master: [Felix Feng](https://github.com/felix2feng)
 
-## Team <a name="Team"></a>
+Product Manager: [Austin Baltes](https://github.com/austinba)
+
+[Aaron Freidus](https://github.com/shadowfool)
+
+[Andy Tran](https://github.com/adtran117)
+    
+### Original Team
     - Matt Naing @mattgrisanu
     - Adam Lessen @lessenadam
     - Erin Kavanaugh @erinkav
