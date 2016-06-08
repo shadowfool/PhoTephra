@@ -5,7 +5,7 @@ const dbUser = 'regal';
 const dbPassword = 'tephra';
 
 class TaggedImages {
-  constructor(dbUser, dbPassword, dbAddress) {
+  constructor() {
     const dbUri = `mongodb://${dbUser}:${dbPassword}@${dbAddress}`;
     this.db = mongoose.connect(dbUri);
     this.Image = mongoose.model('Image',
@@ -26,6 +26,11 @@ class TaggedImages {
     this.Image.findOne({ url }, callback);
   }
 
+  // .retrieveAll(callback(err, images))
+  retrieveAll(callback) {
+    this.Image.find({}, callback);
+  }
+
   // .retrieveUsingArray(imageUrls[], callback(err, imagesFound[{}], imagesNotFound[]))
   retrieveUsingArray(urls, callback) {
     const imagesFound = [];
@@ -35,7 +40,7 @@ class TaggedImages {
     // Cycle through each url
     urls.forEach(url => {
       this.retrieve(url, (err, image) => {
-        if(err) {
+        if (err) {
           callback(err);
           return;
         }
@@ -46,21 +51,21 @@ class TaggedImages {
           imagesFound.push({ url: image.url, tags: image.tags });
         }
 
-        // Callback when all items are checked 
+        // Callback when all items are checked
         if (--callbacksRemaining === 0) {
           callback(null, imagesFound, imagesNotFound);
         }
-      })
-    })
+      });
+    });
   }
 }
 TaggedImages.imageSchema = new mongoose.Schema({
   url: { type: String, required: true, unique: true },
-  tags: { type: Array, "default": [] },
-})
+  tags: { type: Array, default: [] },
+});
 
 // // EXAMPLE USE
-// const imageTags = new TaggedImages(dbUser, dbPassword, dbAddress);
+// const imageTags = new TaggedImages();
 // imageTags.add(
 //   'house.jpg',
 //   ['barn', 'suburb'],
