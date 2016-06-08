@@ -1,139 +1,146 @@
-var bodyParser = require('body-parser');
-var path = require('path');
-var bluebird = require('bluebird'); 
-var url = require('url');
-var db = require('../db/config.js');
-var Users = require('../db/collections/users');
-var User = require('../db/models/user');
+// IF DATABASE DOES NOT WORK, UNCOMMENT DEPENDENCIES
+// const bodyParser = require('body-parser');
+const path = require('path');
+// const bluebird = require('bluebird');
+const url = require('url');
+// const db = require('../db/config.js');
+const Users = require('../db/collections/users');
+const User = require('../db/models/user');
 
-var Arc = require('../db/models/arc'); 
-var Arcs = require('../db/collections/arcs'); 
+const Arc = require('../db/models/arc');
+const Arcs = require('../db/collections/arcs');
 
-var Image = require('../db/models/image.js');
-var Images = require('../db/collections/images.js');
+const Image = require('../db/models/image.js');
+const Images = require('../db/collections/images.js');
 
-var helpers = require('../helpers.js');
+const helpers = require('./helpers.js');
 
-var limit = 5;
+const limit = 5;
 
 module.exports.main = {
-  get: function (req, res) {
-    res.redirect('/signin'); 
-  }
-}; 
+  get(req, res) {
+    res.redirect('/signin');
+  },
+};
 
+// SIGNIN: If user does not exist, add to the database. Then respond
 module.exports.signin = {
-  get: function (req, res) {
-    res.sendFile(path.normalize(__dirname + '/../../public/index.html')); 
-  }, 
+  get(req, res) {
+    res.sendFile(path.normalize(`${__dirname}/../../public/index.html`));
+  },
 
-  post: function (req, res) {
-    // console.log('post request', req.body); 
+  post(req, res) {
+    // console.log('post request', req.body);
     Users.reset()
-      .query({where: {fbId: req.body.userId}})
+      .query({ where: { fbId: req.body.userId } })
       .fetch()
-      .then(function (allUsers) {
+      .then((allUsers) => {
         if (allUsers.length > 0) {
           // this needs to update database and not just console log
-          console.log('This username, ' + req.body.userId + ' already exists in the database');
+          console.log(`This username, ${req.body.userId} already exists in the database`);
         } else {
-          new User({name: req.body.name, fbId: req.body.userId, access_token: req.body.access_token})
+          new User({
+            name: req.body.name,
+            fbId: req.body.userId,
+            access_token: req.body.access_token,
+          })
           .save()
-          .then(function(data){
-            // console.log('user should have saved', data); 
+          .then((data) => {
+            console.log('user should have saved', data);
           });
         }
-        res.writeHead(201); 
-        // res.redirect('/dashboard'); // How do you redirect to React path? 
-        res.end(); 
-      }); 
-  }
-}; 
+        res.writeHead(201);
+        // res.redirect('/dashboard'); // How do you redirect to React path?
+        res.end();
+      });
+  },
+};
 
+// CREATE: Store obj from API calls to DB
 module.exports.create = {
-  get: function (req, res) {
-    res.send('success'); 
-  }, 
+  get(req, res) {
+    res.send('success');
+  },
 
-  post: function (req, res) {
+  post(req, res) {
     // store obj from fb api calls into db
-    console.log("post request from client", req.body.photos.data.length);
-    var imgUrl = helpers.minimizeAndRandArr(req.body.photos.data, limit);
+    console.log('post request from client', req.body.photos.data.length);
+    const imgUrl = helpers.minimizeAndRandArr(req.body.photos.data, limit);
       // user has already been created
-        User.forge({fbId: req.body.id})
-          .fetch()
-          .then(function (userMatched) {
-            // make new arc
-            var arc = new Arc({
-              name: Date()
-            });
-            return arc.save({user_id: userMatched.id});
-          })
-          .then(function (newArc) {
-            console.log("Images in arc =>", imgUrl);
+    User.forge({ fbId: req.body.id })
+      .fetch()
+      .then((userMatched) => {
+        // make new arc
+        const arc = new Arc({
+          name: Date(),
+        });
+        return arc.save({ user_id: userMatched.id });
+      })
+      .then((newArc) => {
+        console.log('Images in arc =>', imgUrl);
 
-          // store img into new arc
-            for (var imgId = 0; imgId < imgUrl.length; imgId++) {
-              var imgSizeArr = imgUrl[imgId].images;
-              // for (var imgSize = 0; imgSize < imgSizeArr.length; imgSize++) {
-                // var img = imgSizeArr[imgSize];
-                var img = imgSizeArr[0];
-                console.log("Img instance", img);
-                var image = new Image({
-                  height: img.height,
-                  width: img.width,
-                  url: img.source
-                });
-
-                image.save({arc_id: newArc.id});
-                // console.log("A new img has been added => ", image);
-              // }
-            }
+      // store img into new arc
+        for (let imgId = 0; imgId < imgUrl.length; imgId++) {
+          const imgSizeArr = imgUrl[imgId].images;
+          // for (var imgSize = 0; imgSize < imgSizeArr.length; imgSize++) {
+            // var img = imgSizeArr[imgSize];
+          const img = imgSizeArr[0];
+          console.log('Img instance', img);
+          const image = new Image({
+            height: img.height,
+            width: img.width,
+            url: img.source,
           });
-    res.send('success'); 
-  }
-}
+
+          image.save({ arc_id: newArc.id });
+            // console.log("A new img has been added => ", image);
+          // }
+        }
+      });
+    res.send('success');
+  },
+};
 
 module.exports.dashboard = {
-	get: function(req, res) {
-		var url_parts = url.parse(req.url, true);
-		var userId = url_parts.query.user_id;
-    var results = [];
-    User.forge({fbId: userId})
+  get(req, res) {
+    const urlParts = url.parse(req.url, true);
+    const userId = urlParts.query.user_id;
+    const results = [];
+    User.forge({ fbId: userId })
       .fetch()
-      .then(function (userMatched) {
+      .then((userMatched) => {
         Arcs.reset()
-          .query({where: {user_id: userMatched.id}})
+          .query({ where: { user_id: userMatched.id } })
           .fetch()
-          .then(function (arcMatched) {
+          .then((arcMatched) => {
             // make array of matching arc id
             // Images.reset();
             // for (var arcNo = 0; arcNo < arcMatched.length; arcNo++) {
               // results.push([]);
-              (function next(index) {
-                  if (index === arcMatched.length) {
-                  	res.json(results);
-                  	return;
+            (function next(index) {
+              if (index === arcMatched.length) {
+                res.json(results);
+                return;
+              }
+              Images.reset()
+                .query((qb) => {
+                  qb.where('arc_id', '=', arcMatched.models[index].id);
+                })
+                .fetch()
+                .then((imageMatched) => {
+                  console.log('for index...', index);
+									// console.log('full imageMatched is...', imageMatched)
+                  // loop through all images in each arc
+                  const result = [];
+                  for (let img = 0; img < imageMatched.length; img++) {
+                    // console.log('All images in this arc =>', imageMatched.models[img].attributes.url, 'here is n =>', n);
+                    
+                    result.unshift({thumbnail: imageMatched.models[img].attributes.url, src: imageMatched.models[img].attributes.url, arcId: imageMatched.models[img].attributes.arc_id});
                   }
-                  Images.reset()
-                    .query(function (qb) {
-                      qb.where('arc_id', '=', arcMatched.models[index].id);
-                    })
-                    .fetch()
-                    .then(function (imageMatched) {
-											console.log('for index...', index) 
-											// console.log('full imageMatched is...', imageMatched)                      
-                      // loop through all images in each arc
-                      result = [];
-                      for (var img = 0; img < imageMatched.length; img++) {
-                        // console.log('All images in this arc =>', imageMatched.models[img].attributes.url, 'here is n =>', n);
-                        
-                        result.unshift({thumbnail: imageMatched.models[img].attributes.url, src: imageMatched.models[img].attributes.url, arcId: imageMatched.models[img].attributes.arc_id});
-                      }
-                      results.push(result);
-                      next(index + 1);
-                    })
-              }) (0);
+                  results.push(result);
+                  next(index + 1);
+                })
+            }) (0);
             });
           })
       }
