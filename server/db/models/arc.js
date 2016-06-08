@@ -1,18 +1,18 @@
-var db = require('../config.js');
+const db = require('../config.js');
 require('./user');
 require('./image');
 
-var Arc = db.Model.extend({
+const Arc = db.Model.extend({
   tableName: 'arcs',
   hasTimestamps: true,
 
-  user: function () {
+  user() {
     return this.belongsTo('User', 'user_id');
   },
 
-  images: function () {
+  images() {
     return this.hasMany('Image', 'arc_id');
-  }
+  },
 });
 
 module.exports = db.model('Arc', Arc);

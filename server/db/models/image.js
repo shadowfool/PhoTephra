@@ -1,12 +1,12 @@
-var db = require('../config.js');
+const db = require('../config.js');
 require('./arc');
 
-var Image = db.Model.extend({
+const Image = db.Model.extend({
   tableName: 'images',
 
-  arc: function () {
+  arc() {
     return this.belongsTo('Arc', 'arc_id');
-  }
+  },
 });
 
 module.exports = db.model('Image', Image);
