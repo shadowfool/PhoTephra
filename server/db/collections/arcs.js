@@ -1,7 +1,7 @@
-var db = require('../config.js');
-var Arc = require('../models/arc.js');
+const db = require('../config.js');
+const Arc = require('../models/arc.js');
 
-var Arcs = new db.Collection();
+const Arcs = new db.Collection();
 
 Arcs.model = Arc;
 

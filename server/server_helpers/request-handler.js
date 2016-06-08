@@ -101,23 +101,21 @@ module.exports.create = {
   },
 };
 
+//
 module.exports.dashboard = {
   get(req, res) {
-    const urlParts = url.parse(req.url, true);
-    const userId = urlParts.query.user_id;
+    const urlParts = url.parse(req.url, true); // Parse URL
+    const userId = urlParts.query.user_id; // Get user ID from URL
     const results = [];
-    User.forge({ fbId: userId })
+    User.forge({ fbId: userId }) // Create new user with ID
       .fetch()
       .then((userMatched) => {
-        Arcs.reset()
-          .query({ where: { user_id: userMatched.id } })
+        Arcs.reset() // Empty out the current collection of story Arcs
+          .query({ where: { user_id: userMatched.id } }) // Query userID's arcs
           .fetch()
           .then((arcMatched) => {
-            // make array of matching arc id
-            // Images.reset();
-            // for (var arcNo = 0; arcNo < arcMatched.length; arcNo++) {
-              // results.push([]);
-            (function next(index) {
+            // make array of matching arc id using recursive function next
+            const next = (index) => {
               if (index === arcMatched.length) {
                 res.json(results);
                 return;
@@ -129,22 +127,15 @@ module.exports.dashboard = {
                 .fetch()
                 .then((imageMatched) => {
                   console.log('for index...', index);
-									// console.log('full imageMatched is...', imageMatched)
-                  // loop through all images in each arc
-                  const result = [];
-                  for (let img = 0; img < imageMatched.length; img++) {
-                    // console.log('All images in this arc =>', imageMatched.models[img].attributes.url, 'here is n =>', n);
-                    
-                    result.unshift({thumbnail: imageMatched.models[img].attributes.url, src: imageMatched.models[img].attributes.url, arcId: imageMatched.models[img].attributes.arc_id});
-                  }
-                  results.push(result);
+                  // loop through all images in each arc and return an array
+                  const imageArray = helpers.createArrayOfPhotos(imageMatched);
+                  results.push(imageArray);
                   next(index + 1);
-                })
-            }) (0);
-            });
-          })
-      }
+                });
+            };
+            next(0);
+          });
+      });
+  },
 
-		// console.log('query is an object as: ', );
-		// res.send('success');
-}; 
+};
