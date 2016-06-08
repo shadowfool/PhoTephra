@@ -19,7 +19,8 @@ class FacebookButton extends React.Component {
     var self = this; 
     window.fbAsyncInit = function() {
       FB.init({
-        appId      : '1171407722880061',
+        // appId      : '1171407722880061',
+        appId      : '1614598852200788',
         xfbml      : true,
         version    : 'v2.6'
       });
