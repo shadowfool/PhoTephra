@@ -79,3 +79,5 @@ TaggedImages.imageSchema = new mongoose.Schema({
 //     console.log('not found\n', imagesNotFound);
 //     console.log('\n\nfound\n', imagesFound);
 //   });
+
+module.exports = TaggedImages;
