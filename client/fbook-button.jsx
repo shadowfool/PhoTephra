@@ -19,7 +19,6 @@ class FacebookButton extends React.Component {
     var self = this; 
     window.fbAsyncInit = function() {
       FB.init({
-        // appId      : '1171407722880061',
         appId      : '1614598852200788',
         xfbml      : true,
         version    : 'v2.6'
@@ -37,8 +36,9 @@ class FacebookButton extends React.Component {
   }
 
   checkLoginState () {
-    var self = this;  
+    var self = this;
     FB.getLoginStatus(function(response) {
+      console.log(response);
       if (response.status === 'connected') {
         self.setState({authenticated: true});     
       } else {
@@ -50,7 +50,7 @@ class FacebookButton extends React.Component {
               self.setState({authenticated: true});
               console.log('in api call',response)
               $.post('/signin', {name: response.name, userId: response.id, access_token: access_token}).done(function(data) {
-                console.log('success'); 
+                console.log('success');
                 window.fbId = response.id; 
                 window.access_token = access_token; 
                 hashHistory.push('dashboard'); 
@@ -68,7 +68,6 @@ class FacebookButton extends React.Component {
 
   logout () {
     var self = this; 
-    console.log('is this working?'); 
     FB.logout(function(response) {
       self.setState({authenticated: false}); 
       hashHistory.push('/login'); 
@@ -88,7 +87,7 @@ class FacebookButton extends React.Component {
   render() {
     return (
       <div>
-        <button className='facebook-login' onClick={this.handleClick}>Log in with Facebook</button>
+        <button type="button" className='btn btn-primary btn-md' onClick={this.handleClick}>Log in with Facebook</button>
       </div>
     ); 
   }

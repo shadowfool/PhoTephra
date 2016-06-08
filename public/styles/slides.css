@@ -1,0 +1,33 @@
+.Aligner {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.Aligner-item {
+  max-width: 30%;
+}
+
+.choiceContainer{
+  top:20em;
+  background-color: rgba(255,255,255, 0.5);
+  border-radius: 4px;
+  color: inherit;
+  padding-bottom:10px;
+  box-shadow: 1px 2px 2px 3px rgba(0, 0, 0, 0.15);
+}
+
+
+.viewport-slider-button {
+  border: 1px solid #fff;
+  color: #fff;
+  cursor: pointer;
+  opacity: .5;
+  padding: 12px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: opacity .35s;
+}
+
+.viewport-slider-button:hover {
+  opacity: 1;
+}

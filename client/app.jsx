@@ -6,6 +6,7 @@ import Login from './login';
 import Main from './main';
 import Feed from './feed';
 import Form from './form';
+import Slides from './slides';
 // import { Button } from 'react-bootstrap';
 // import $ from 'jquery'; 
 
@@ -16,9 +17,10 @@ render((
     <Route path='/' component={Login}/>
     <Route path='/login' component={Login}/>
     <Route component={Main}>
-    	<Route path='create' component={Form}/>
-    	<Route path='dashboard' component={Feed}/>
+    <Route path='create' component={Form}/>
+    <Route path='dashboard' component={Feed}/>
     </Route>
+    <Route path='/slides' component={Slides}></Route>
   </Router>
   ), document.getElementsByClassName('mounting')[0]);
 

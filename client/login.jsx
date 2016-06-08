@@ -3,20 +3,15 @@ import FacebookButton from './fbook-button';
 import Button from 'react-bootstrap/lib/Button';
 
 var Login = () => (
-  <div id="background">
-    <div className="login-wrapper">
-      <div className="login-container">
-        <div className ="login-title">
-          <h1>Foto Time</h1>
-          <h4 className="text">Quick and Classy Memories... Served Hot </h4>
-        </div>
-        <div className="login-button">
-          <FacebookButton />
+  <div>
+      <div id="section-1" className="Aligner container">  
+        <div className="col-md-8 col-md-offset-7 Aligner-item opaqueContainer">
+          <h1>Photephra • /fʌ/ˈtɛ.fɹə/</h1>
+          <h3>Photo curation for the perfect profile</h3>
+          <FacebookButton className='col-md-3' />
         </div>
       </div>
-    </div>
   </div>
-
 ); 
 
 export default Login; 
