@@ -1,10 +1,10 @@
 const Clarifai = require('clarifai');
-const key = require('../../keys.js');
+// const key = require('../../keys.js');
 
-const client = new Clarifai({
-  id: key.clarifaiClientID,
-  secret: key.clarifaiClientSecret,
-});
+// const client = new Clarifai({
+//   id: key.clarifaiClientID,
+//   secret: key.clarifaiClientSecret,
+// });
 
 const helpers = require('./helpers.js');
 
@@ -14,3 +14,5 @@ const testImages = [
 ];
 
 helpers.getTagsFromClarifai(testImages);
+
+// helpers.classifyPhoto(testImages, '')
