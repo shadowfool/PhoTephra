@@ -1,5 +1,9 @@
 'use strict';
 const mongoose = require('mongoose');
+const dbAddress = 'ds025583.mlab.com:25583/photephra';
+const dbUser = 'regal';
+const dbPassword = 'tephra';
+
 class TaggedImages {
   constructor(dbUser, dbPassword, dbAddress) {
     const dbUri = `mongodb://${dbUser}:${dbPassword}@${dbAddress}`;
@@ -55,13 +59,7 @@ TaggedImages.imageSchema = new mongoose.Schema({
   tags: { type: Array, "default": [] },
 })
 
-const dbAddress = 'ds025583.mlab.com:25583/photephra';
-const dbUser = 'regal';
-const dbPassword = 'tephra';
-
-
-
-// EXAMPLE USE
+// // EXAMPLE USE
 // const imageTags = new TaggedImages(dbUser, dbPassword, dbAddress);
 // imageTags.add(
 //   'house.jpg',
@@ -81,7 +79,3 @@ const dbPassword = 'tephra';
 //     console.log('not found\n', imagesNotFound);
 //     console.log('\n\nfound\n', imagesFound);
 //   });
-
-
-module.exports = TaggedImages;
-
