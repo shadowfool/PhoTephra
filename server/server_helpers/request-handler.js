@@ -12,6 +12,8 @@ var Arcs = require('../db/collections/arcs');
 var Image = require('../db/models/image.js');
 var Images = require('../db/collections/images.js');
 
+var helpers = require('../helpers.js');
+
 var limit = 5;
 
 module.exports.main = {
@@ -48,24 +50,6 @@ module.exports.signin = {
   }
 }; 
 
-// take an array and return arr selecting only =limit # of elements
-var minimizeAndRandArr = function (arr, targetLength) {
-  var totalLen = arr.length;
-  var di = totalLen/targetLength;
-  var results = [];
-
-  if (totalLen <= targetLength) {
-    return arr;
-  } else {
-    for (var i = 0; i < totalLen; i += di) {
-      var ind = Math.floor(i + Math.floor(Math.random()*di));
-      console.log(ind);
-      results.push(arr[ind]);
-    }
-  }
-  return results;
-}
-
 module.exports.create = {
   get: function (req, res) {
     res.send('success'); 
@@ -74,7 +58,7 @@ module.exports.create = {
   post: function (req, res) {
     // store obj from fb api calls into db
     console.log("post request from client", req.body.photos.data.length);
-    var imgUrl = minimizeAndRandArr(req.body.photos.data, limit);
+    var imgUrl = helpers.minimizeAndRandArr(req.body.photos.data, limit);
       // user has already been created
         User.forge({fbId: req.body.id})
           .fetch()
