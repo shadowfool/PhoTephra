@@ -1,4 +1,4 @@
-const TaggedImages = require('./server_helpers/ImagesAlreadyTagged');
+const TaggedImages = require('./server_helpers/TaggedImages');
 // For testing: retrieve all tags
 const imageTags = new TaggedImages();
 imageTags.retrieveAll((err, images) => {
