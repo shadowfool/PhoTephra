@@ -1,6 +1,10 @@
+.body{
+  font-family:'Roboto';
+}
+
 .navbar{
   height: 70px;
-  font-family: 'Raleway', sans-serif; 
+  font-family: 'Roboto', sans-serif; 
 }
 
 .links, .logout {
@@ -27,7 +31,7 @@
   padding: 10px;
   border-radius: 5px;
   border-color: lightblue;
-  font-family: 'Raleway', sans-serif; 
+  font-family: 'Roboto', sans-serif; 
 }
 
 
@@ -36,54 +40,13 @@
   background-color:rgba(10,10,10,0.2); 
 }
 
-.signIn {
-    height: 100%;
-    width: 100%;
-}
-
 .text {
   color: #D0D0D0;
 }
 
-.login-wrapper {
-  display: flex;
-  height: 100%;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-}
-
-.login-container {
-  display:flex;
-  height: 400px;
-  width: 50%;
-  flex-direction:column;
-  background-color: rgba(10,10,10,0.6);
-  justify-content:center;
-  border-style: solid;
-  border-color: lightblue;
-  border-width: 15px;
-}
-
-.login-title {
-  margin-top: 30px;
-  margin-bottom: 100px;
-  text-align: center;
-  color: white;
-  font-family: 'Raleway', sans-serif; 
-}
-
-.login-title > h1{
-  font-family: 'Pacifico', cursive; 
-}
-.login-button {
-  text-align: center;
-  margin-bottom: 30px;
-}
-
 
 #background { 
-    background: url(../scrapbook.jpg) no-repeat center center fixed; 
+    background: url('https://images.unsplash.com/photo-1455778977533-4a3ef39091c6?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=b73d87d680dac8ea8d0f273f69b99f27') no-repeat center; 
     -o-background-size: cover;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -170,22 +133,12 @@ p > button {
   font-color: white;
   border-radius: 3px;
   padding: 5px;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
   width: 150px;
 }
 
-.facebook-login {
-  background-color: transparent;
-  border: 3px solid lightblue;
-  width: 200px;
-}
-
-.facebook-login:hover {
-  background-color: rgba(10,10,10,0.5);
-}
-
 .brand a{
-  font-family: 'Pacifico', cursive;
+  font-family: 'Roboto';
   margin-top: 15px;
   color: white;
   font-size: 33px;

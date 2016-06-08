@@ -12,6 +12,7 @@ var topNav = (props) => (
       <NavItem className="brand">FotoTime</NavItem>
 			<NavItem style={linkStyle}><Link to="/dashboard" activeClassName="active" style={linkStyle}>Dashboard</Link></NavItem>
 			<NavItem style={linkStyle}><Link to="/create" activeClassName="active" style={linkStyle}>Create new story</Link></NavItem>
+      <NavItem style={linkStyle}><Link to="/slides" activeClassName="active" style={linkStyle}>Slides</Link></NavItem>
 		</Nav>
 		<Nav pullRight>
 			<NavItem className="logout" onClick={() => {

@@ -1,0 +1,22 @@
+#section-1{
+  background: url('https://images.unsplash.com/photo-1428189923803-e9801d464d76?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=40e43c26d48dfcaaf80670e1639c1af7') no-repeat center;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.Aligner {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.Aligner-item {
+  max-width: 30%;
+}
+.opaqueContainer{
+  background-color: rgba(255,255,255, 0.5);
+  border-radius: 4px;
+  color: inherit;
+  padding-bottom:10px;
+  box-shadow: 1px 2px 2px 3px rgba(0, 0, 0, 0.15);
+}
