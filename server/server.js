@@ -29,6 +29,7 @@ app.use(express.static(__dirname.concat('/../public')));
 
 app.get('/', requestHandler.main.get);
 
+// TODO: If server acts as mainly an API, then directory /api/** - i.e. /api/create
 app.get('/signin', requestHandler.signin.get);
 app.post('/signin', requestHandler.signin.post);
 

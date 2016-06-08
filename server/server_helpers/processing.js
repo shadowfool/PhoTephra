@@ -6,16 +6,11 @@ const client = new Clarifai({
   secret: key.clarifaiClientSecret,
 });
 
-// Get new access tocken
-client.getAccessToken((err, accessToken) => {
-  // Callback code here
-});
+const helpers = require('./helpers.js');
 
-// Get tags from the url
+const testImages = [
+  "http://i.imgur.com/FWGpCuk.jpg",
+  "http://media.galaxant.com/000/108/061/desktop-1421344897.jpg",
+];
 
-// URL can be a url or an array of URLs
-const url = [];
-
-client.tagFromUrls('image', url, function(err, results) {
-  // Callback code here
-}, [language])
+helpers.getTagsFromClarifai(testImages);
