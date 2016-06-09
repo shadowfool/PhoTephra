@@ -47,7 +47,9 @@
   -webkit-animation: none !important;
   animation: none !important;
 }
-
+.viewport-slider-item{
+  box-sizing: content-box !important;
+}
 
 /*DO NOT SHOW THE BELOW ELEMENTS*/
 /********************************/
@@ -56,6 +58,7 @@
   border: 1px solid #fff;
   box-shadow: 0 0 2px #ccc;
   visibility:hidden !important;
+  position:absolute !important;
 }
 
 .viewport-slider-paginator-bullet {
