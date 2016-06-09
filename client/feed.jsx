@@ -10,22 +10,20 @@ class Feed extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      arcs: [] 
+      arcs: []
     }
     // this.componentDidMount.bind(this);
     // this.getData.bind(this);
   }
 
   componentDidMount() {
-    console.log('cdm'); 
+    console.log('cdm');
     this.getData();
   }
 
   getData() {
-    console.log(fbId);
-
-    var self = this; 
-    $.get('/dashboard', {user_id: fbId}, function(data) {
+    var self = this;
+    $.get('/dashboard', { user_id: fbId }, function(data) {
       console.log("Data from db =>", data);
     
       // data = data.filter(function(val) {

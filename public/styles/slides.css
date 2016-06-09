@@ -18,12 +18,13 @@
 
 
 .viewport-slider-button {
+  background-color: rgba(255,255,255, 0.5) !important;
   border: 1px solid #fff;
   border-radius:2.5px;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
-  opacity: .5;
+  opacity: .9;
   padding: 12px;
   font-weight: bold;
   text-transform: uppercase;
@@ -40,6 +41,12 @@
   opacity: 1;
 }
 
+.viewport-slider-button:active {
+  -webkit-transform: translateY(3px) !important;
+  transform: translateY(3px) !important;
+  -webkit-animation: none !important;
+  animation: none !important;
+}
 
 
 /*DO NOT SHOW THE BELOW ELEMENTS*/

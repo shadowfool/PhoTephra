@@ -1,25 +1,23 @@
 import React from 'react';
-import { render } from 'react-dom'; 
+import { render } from 'react-dom';
 import { Router, Route, hashHistory } from 'react-router';
 
-import Login from './login'; 
+import Login from './login';
 import Main from './main';
 import Feed from './feed';
 import Form from './form';
 import Slides from './slides';
 // import { Button } from 'react-bootstrap';
-// import $ from 'jquery'; 
+// import $ from 'jquery';
 
-
-
-render((  
-	<Router history={hashHistory}>
-    <Route path='/' component={Login}/>
-    <Route path='/login' component={Login}/>
+render((
+  <Router history={hashHistory}>
+    <Route path="/" component={Login} />
+    <Route path="/login" component={Login} />
     <Route component={Main}>
-    <Route path='create' component={Form}/>
-    <Route path='dashboard' component={Feed}/>
-    <Route path='/slides' component={Slides}/>
+      <Route path="create" component={Form} />
+      <Route path="dashboard" component={Feed} />
+      <Route path="/slides" component={Slides} />
     </Route>
   </Router>
   ), document.getElementsByClassName('mounting')[0]);

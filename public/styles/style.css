@@ -2,23 +2,6 @@
   font-family:'Roboto';
 }
 
-.navbar{
-  height: 70px;
-  font-family: 'Roboto', sans-serif; 
-}
-
-.links, .logout {
-  margin-top: 20px;
-  /*margin-bottom: 20px;*/
-}
-
-.links a{
-  font-size: 20px;
-  color: white;
-  padding: 7px 15px 7px 15px;
-  /*height: 70px;*/
-}
-
 .page-title {
   margin-top: 70px;
   background-color: rgba(10,10,10,0.6);
@@ -32,12 +15,6 @@
   border-radius: 5px;
   border-color: lightblue;
   font-family: 'Roboto', sans-serif; 
-}
-
-
-
-.active {
-  background-color:rgba(10,10,10,0.2); 
 }
 
 .text {
