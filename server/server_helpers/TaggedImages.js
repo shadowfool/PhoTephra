@@ -45,7 +45,7 @@ class TaggedImages {
         if (image === null) {
           imagesNotFound.push(url);
         } else {
-          imagesFound.push({ url: image.url, tags: image.tags });
+          imagesFound.push({ url: image.url, apiData: image.tags });
         }
 
         // Callback when all items are checked

@@ -73,10 +73,10 @@ module.exports.getTags = (photoArray, callback) => {
           console.log('saved something to DB');
         };
         for (let i = 0; i < imagesNotFound.length; i++) {
-          images[i] = { url: imagesNotFound[i], tags: newlyTagged[i] };
+          images[i] = { url: imagesNotFound[i], apiData: newlyTagged[i] };
 
           // Add image to db
-          taggedImages.add(images[i].url, images[i].tags, saveToDbCallback);
+          taggedImages.add(images[i].url, images[i].apiData, saveToDbCallback);
           console.log('newly tagged:', images[i].url);
         }
         images = images.concat(imagesFound);
