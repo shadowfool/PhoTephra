@@ -2,12 +2,12 @@
 const mongoose = require('mongoose');
 const key = require('../../keys.js');
 
-class TaggedImages {
+class DbForSavingPhotoAPIResults {
   constructor() {
     const dbUri = `mongodb://${key.dbUser}:${key.dbPassword}@${key.dbAddress}`;
     this.db = mongoose.connect(dbUri);
     this.Image = mongoose.model('Image',
-      TaggedImages.imageSchema);
+      DbForSavingPhotoAPIResults.imageSchema);
   }
 
   // .add(imageUrl, tags[], callback(err))
@@ -56,13 +56,13 @@ class TaggedImages {
     });
   }
 }
-TaggedImages.imageSchema = new mongoose.Schema({
+DbForSavingPhotoAPIResults.imageSchema = new mongoose.Schema({
   url: { type: String, required: true, unique: true },
   tags: { type: Array, default: [] },
 });
 
 // // EXAMPLE USE
-// const imageTags = new TaggedImages();
+// const imageTags = new DbForSavingPhotoAPIResults();
 // imageTags.add(
 //   'house.jpg',
 //   ['barn', 'suburb'],
@@ -82,4 +82,4 @@ TaggedImages.imageSchema = new mongoose.Schema({
 //     console.log('\n\nfound\n', imagesFound);
 //   });
 
-module.exports = TaggedImages;
+module.exports = DbForSavingPhotoAPIResults;
