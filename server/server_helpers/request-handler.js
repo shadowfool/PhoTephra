@@ -158,12 +158,15 @@ module.exports.categorize = {
       _.each(images, (photo) => {
         const imageUrl = photo.url;
         const categorized = helpers.classifyTags(photo.apiData.tags);
-        photoArray.push({ imageUrl, categorized });
+        const tags = photo.apiData.tags;
+        photoArray.push({ imageUrl, categorized, tags });
       });
       console.log('Photoarray', photoArray);
       _.each(photoArray, (photo) => {
         _.each(photo.categorized, (category) => {
-          categorizedResponse[category].push(photo.imageUrl);
+          const urls = photo.imageUrl;
+          const tags = photo.tags;
+          categorizedResponse[category].push({ urls, tags });
         });
       });
       res.json(categorizedResponse);
