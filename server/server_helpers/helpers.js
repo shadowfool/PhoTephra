@@ -3,7 +3,7 @@ const Promise = require('bluebird');
 const Clarifai = require('clarifai');
 const DbForSavingPhotoAPIResults = require('./DbForSavingPhotoAPIResults');
 const key = require('../../keys.js');
-const categories = require('./categories.js')
+const categories = require('./categories.js');
 const client = Promise.promisifyAll(
   new Clarifai({
     id: key.clarifaiClientID,
@@ -43,11 +43,6 @@ module.exports.createArrayOfPhotos = (imageArray) => {
 
 // Get Tags from Clarifai (memoized on database) and return array with photos
 module.exports.getTags = (photoArray, callback) => {
-  // TODO: COMPLETE FUNCTION
-  // Input: Takes an array of photos
-    // Send ajax request to Clarifai server in its required format
-  // let returnArray = [];
-  // Get new access token
   const db = Promise.promisifyAll(new DbForSavingPhotoAPIResults());
   let imagesFoundInDb;
   let imagesNotFoundInDb;
@@ -98,30 +93,6 @@ module.exports.getTags = (photoArray, callback) => {
     callback(null, images);
   })
   .catch(err => callback(err));
-
-    //   // TODO: Photo Array May need cleaning up
-    // const arrayOfPhotos = photoArray;
-    // client.tagFromUrls('image', arrayOfPhotos, (err1, results) => {
-    //   if (err1) {
-    //     console.log('Error in getting images from Clarifai', err1);
-    //     return;
-    //   }
-    //   console.log("Results from Clarifai", results);
-    //   // Clean up each photo and return replace new array
-    //   returnArray = _.map(results.tags, (photo) => {
-    //     const newPhoto = photo;
-    //     // add the URL of the photo along that was sent
-    //     newPhoto.url = photoArray.url;
-    //     // Also, remove the concept ID. We don't need it
-    //     delete newPhoto.conceptId;
-    //     return newPhoto;
-    //   });
-    // });
-
-  // console.log(client.tagFromUrls);
-  // Returns array of photos with tags from clarifai
-  // [{results: [url: 'url', result: {tag: {classes: [...] }, {probs: [...] }   }]   }]
-  // return returnArray;
 };
 
 module.exports.classifyTags = (tags) => {
@@ -129,8 +100,7 @@ module.exports.classifyTags = (tags) => {
   // Input is an array of tags
   // Output is an array of one or multiple categories (ex: ['professional', 'headshot'])
   const categorized = [];
-
-  _.forEach(categories, (value, index) => {
+  _.each(categories, (value, index) => {
     // Look at all the tags
     for (let i = 0; i < tags.length; i++) {
       // If it is inside the categories array, push it but break immediately
@@ -141,7 +111,6 @@ module.exports.classifyTags = (tags) => {
       }
     }
   });
-
   return categorized;
 };
 
