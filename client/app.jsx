@@ -19,8 +19,8 @@ render((
     <Route component={Main}>
     <Route path='create' component={Form}/>
     <Route path='dashboard' component={Feed}/>
+    <Route path='/slides' component={Slides}/>
     </Route>
-    <Route path='/slides' component={Slides}></Route>
   </Router>
   ), document.getElementsByClassName('mounting')[0]);
 

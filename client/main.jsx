@@ -2,43 +2,61 @@ import React from 'react';
 import Nav from './nav';
 import { Button } from 'react-bootstrap';
 import Feed from './feed';
-
-
+import Slides from './slides';
 
 class Main extends React.Component {
-  constructor (props) {
+  constructor(props) {
     super(props);
-    this.submitHandler = this.submitHandler.bind(this); 
+    this.state = { toggle: false };
+    this.changeId = this.changeId.bind(this);
+    this.setToggle = this.setToggle.bind(this);
+    this.submitHandler = this.submitHandler.bind(this);
   }
-  
-  submitHandler (startDate, endDate, options) {
+  submitHandler(startDate, endDate, options) {
     $.post({
       url: '/create',
       data: {
         startDate: startDate,
         endDate: endDate,
-        options: options
+        options: options,
       },
-      success: function() {
-        console.log('success'); 
-      }
-    })
+      success: () => {
+        console.log('success');
+      },
+    });
   }
 
-  render () {
+  changeId() {
+    if (this.state.toggle) {
+      return 'toggled';
+    }
+    return '';
+  }
+
+  setToggle() {
+    console.log(this);
+    this.setState({ toggle: !this.state.toggle });
+  }
+
+  render() {
     return (
       <div>
-        <header>
+        <div id="wrapper" className={this.changeId()}>
           <Nav />
-        </header>
-
-        
-        {this.props.children}
-
-      
+          <div id="page-content-wrapper">
+            <div>
+              <div className="horizontalBar">
+                <button id="menu-toggle" className="btn btn-lg" onClick={this.setToggle}>
+                  <span className="glyphicon glyphicon-menu-hamburger"></span>
+                </button>
+              </div>
+              {this.props.children}
+            </div>
+          </div>
+        </div>
       </div>
-    ); 
+    );
   }
-}; 
+}
 
 export default Main;
