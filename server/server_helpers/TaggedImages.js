@@ -1,12 +1,10 @@
 'use strict';
 const mongoose = require('mongoose');
-const dbAddress = 'ds025583.mlab.com:25583/photephra';
-const dbUser = 'regal';
-const dbPassword = 'tephra';
+const key = require('../../keys.js');
 
 class TaggedImages {
   constructor() {
-    const dbUri = `mongodb://${dbUser}:${dbPassword}@${dbAddress}`;
+    const dbUri = `mongodb://${key.dbUser}:${key.dbPassword}@${key.dbAddress}`;
     this.db = mongoose.connect(dbUri);
     this.Image = mongoose.model('Image',
       TaggedImages.imageSchema);
