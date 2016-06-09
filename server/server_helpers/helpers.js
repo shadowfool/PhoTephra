@@ -73,10 +73,19 @@ module.exports.getTags = (photoArray, callback) => {
 
   // Save tags from images not found into db
   .then((newlyTagged) => {
+    // put in array if Clarifai only returns one item
+    let newTags = newlyTagged;
+    if (!Array.isArray(newTags)) {
+      newTags = [newTags];
+    }
+
     const dbAddPromises = [];
     images = Array(imagesNotFoundInDb.length);
     for (let i = 0; i < imagesNotFoundInDb.length; i++) {
-      images[i] = { url: imagesNotFoundInDb[i], apiData: newlyTagged[i] };
+      images[i] = { url: imagesNotFoundInDb[i], apiData: newTags[i] };
+      console.log('add url', images[i].url);
+      console.log('add apiData', JSON.stringify(images[i].apiData));
+      console.log('\n\n');
       dbAddPromises.push(db.addAsync(images[i].url, images[i].apiData));
     }
     return Promise.all(dbAddPromises);
@@ -135,6 +144,7 @@ module.exports.classifyTags = (tags) => {
 
   return categorized;
 };
+
 
 // Helper Functions that I need
   // Get the facebook photos that I need from the array Andy is sending me
