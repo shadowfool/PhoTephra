@@ -1,6 +1,7 @@
 // IF DATABASE DOES NOT WORK, UNCOMMENT DEPENDENCIES
 // const bodyParser = require('body-parser');
 const path = require('path');
+const _ = require('lodash');
 // const bluebird = require('bluebird');
 const url = require('url');
 // const db = require('../db/config.js');
@@ -14,6 +15,7 @@ const Image = require('../db/models/image.js');
 const Images = require('../db/collections/images.js');
 
 const helpers = require('./helpers.js');
+const categories = require('./categories.js');
 
 const limit = 5;
 
@@ -136,6 +138,28 @@ module.exports.dashboard = {
             next(0);
           });
       });
+  },
+};
+
+module.exports.categorize = {
+  post(req, res) {
+    // Input: Array of photo URLs
+    const categorizedResponse = categories.catResponse;
+    helpers.getTags(req.body, (photoArray) => {
+      _.each(photoArray, (photo) => {
+
+      })
+      // For each url, look at the category, and push into the corresponding array;
+
+    });
+    
+
+
+
+    // Output: Respond with object with categories that contains arrays with URLs
+
+
+
   },
 
 };

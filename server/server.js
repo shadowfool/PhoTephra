@@ -38,6 +38,8 @@ app.post('/create', requestHandler.create.post);
 
 app.get('/dashboard', requestHandler.dashboard.get);
 
+app.post('/api/categorize', requestHandler.categorize.post);
+
 app.listen(port, () => {
   console.log('Listening on port:', port, '!');
 });
