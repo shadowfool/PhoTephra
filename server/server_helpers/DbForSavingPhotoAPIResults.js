@@ -1,23 +1,24 @@
 'use strict';
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 const key = require('../../keys.js');
 
 class DbForSavingPhotoAPIResults {
   constructor() {
     const dbUri = `mongodb://${key.dbUser}:${key.dbPassword}@${key.dbAddress}`;
-    const imageSchema = {
+    const imageSchema = new Schema({
       url: { type: String, required: true, unique: true },
-      tags: { type: Array, default: [] },
-    };
+      apiData: { type: Object, default: {} },
+    });
     this.db = mongoose.connect(dbUri);
     this.Image = mongoose.model('Image', imageSchema);
   }
 
   // .add(imageUrl, tags[], callback(err))
-  add(url, tags, callback) {
+  add(url, apiData, callback) {
     (new this.Image({
       url,
-      tags,
+      apiData,
     }))
     .save(callback);
   }
@@ -48,7 +49,7 @@ class DbForSavingPhotoAPIResults {
         if (image === null) {
           imagesNotFound.push(url);
         } else {
-          imagesFound.push({ url: image.url, apiData: image.tags });
+          imagesFound.push({ url: image.url, apiData: image.apiData });
         }
 
         // Callback when all items are checked
