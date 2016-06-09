@@ -13,6 +13,12 @@ const testImages = [
   'http://media.galaxant.com/000/108/061/desktop-1421344897.jpg',
 ];
 
-helpers.getTagsFromClarifai(testImages);
+helpers.getTags(testImages, (err, images) => {
+  if (err) {
+    console.error(err);
+    return;
+  }
+  console.log(JSON.stringify(images, null, 2));
+});
 
 // helpers.classifyPhoto(testImages, '')
