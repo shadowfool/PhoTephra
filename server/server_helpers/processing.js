@@ -26,7 +26,7 @@ helpers.getTags(testImages, (err, images) => {
 		results.push({ url: url, categories: categories });
   }
 
-  console.log(results);
+  return results;
 });
 
 // helpers.classifyPhoto(testImages, '')
