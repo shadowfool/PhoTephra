@@ -28,7 +28,6 @@ class TaggedImages {
   retrieveAll(callback) {
     this.Image.find({}, callback);
   }
-
   // .retrieveUsingArray(imageUrls[], callback(err, imagesFound[{}], imagesNotFound[]))
   retrieveUsingArray(urls, callback) {
     const imagesFound = [];

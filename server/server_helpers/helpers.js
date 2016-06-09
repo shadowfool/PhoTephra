@@ -1,5 +1,6 @@
 // const _ = require('lodash');
 const Clarifai = require('clarifai');
+const TaggedImages = require('./TaggedImages');
 const key = require('../../keys.js');
 console.log(key);
 
@@ -39,45 +40,82 @@ module.exports.createArrayOfPhotos = (imageArray) => {
   return result;
 };
 
-// Get Tags from Clarifai and return array with photos
-module.exports.getTagsFromClarifai = (photoArray) => {
+// Get Tags from Clarifai (memoized on database) and return array with photos
+module.exports.getTags = (photoArray, callback) => {
   // TODO: COMPLETE FUNCTION
   // Input: Takes an array of photos
     // Send ajax request to Clarifai server in its required format
   // let returnArray = [];
   // Get new access token
-  client.getAccessToken((err, accessToken) => {
-    if (err) {
-      console.log('Error in accessing Clarifai token', err);
+  client.getAccessToken((clarifaiAccessErr, accessToken) => {
+    if (clarifaiAccessErr) {
+      callback(clarifaiAccessErr);
       return;
     }
 
-    console.log(accessToken);
-  //   // TODO: Photo Array May need cleaning up
-  // const arrayOfPhotos = photoArray;
-  // client.tagFromUrls('image', arrayOfPhotos, (err1, results) => {
-  //   if (err1) {
-  //     console.log('Error in getting images from Clarifai', err1);
-  //     return;
-  //   }
-  //   console.log("Results from Clarifai", results);
-  //   // Clean up each photo and return replace new array
-  //   returnArray = _.map(results.tags, (photo) => {
-  //     const newPhoto = photo;
-  //     // add the URL of the photo along that was sent
-  //     newPhoto.url = photoArray.url;
-  //     // Also, remove the concept ID. We don't need it
-  //     delete newPhoto.conceptId;
-  //     return newPhoto;
-  //   });
-  // });
-    
-    client.tagFromUrls('image', photoArray, (error, results) => {
-      if (error) {
-        console.log(err);
+    const taggedImages = new TaggedImages();
+
+    // Check if these have already been checked
+    taggedImages.retrieveUsingArray(photoArray, (dbRetrieveErr, imagesFound, imagesNotFound) => {
+      console.log('images in db:', imagesFound.length);
+      console.log('images not in db:', imagesNotFound.length);
+      if (dbRetrieveErr) {
+        callback(dbRetrieveErr);
+        return;
       }
-      console.log(JSON.stringify(results));
+      const finishedCallback = (newlyTagged) => {
+        let images = Array(imagesNotFound.length);
+        const saveToDbCallback = saveToDbErr => {
+          if (saveToDbErr) {
+            callback(saveToDbErr);
+            return;
+          }
+          console.log('saved something to DB');
+        };
+        for (let i = 0; i < imagesNotFound.length; i++) {
+          images[i] = { url: imagesNotFound[i], tags: newlyTagged[i] };
+
+          // Add image to db
+          taggedImages.add(images[i].url, images[i].tags, saveToDbCallback);
+          console.log('newly tagged:', images[i].url);
+        }
+        images = images.concat(imagesFound);
+        callback(null, images);
+      };
+
+      if (imagesNotFound.length > 0) {
+        client.tagFromUrls('image', imagesNotFound, (clarifaiTagErr, newlyTagged) => {
+          if (clarifaiTagErr) {
+            callback(clarifaiTagErr);
+            return;
+          }
+          finishedCallback(newlyTagged);
+        });
+      } else {
+        finishedCallback([]);
+      }
     });
+
+    console.log(accessToken);
+    //   // TODO: Photo Array May need cleaning up
+    // const arrayOfPhotos = photoArray;
+    // client.tagFromUrls('image', arrayOfPhotos, (err1, results) => {
+    //   if (err1) {
+    //     console.log('Error in getting images from Clarifai', err1);
+    //     return;
+    //   }
+    //   console.log("Results from Clarifai", results);
+    //   // Clean up each photo and return replace new array
+    //   returnArray = _.map(results.tags, (photo) => {
+    //     const newPhoto = photo;
+    //     // add the URL of the photo along that was sent
+    //     newPhoto.url = photoArray.url;
+    //     // Also, remove the concept ID. We don't need it
+    //     delete newPhoto.conceptId;
+    //     return newPhoto;
+    //   });
+    // });
+
   });
   // console.log(client.tagFromUrls);
   // Returns array of photos with tags from clarifai
