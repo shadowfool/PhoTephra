@@ -1,11 +1,13 @@
 // const _ = require('lodash');
 const Clarifai = require('clarifai');
 const key = require('../../keys.js');
+console.log(key);
 
 const client = new Clarifai({
   id: key.clarifaiClientID,
   secret: key.clarifaiClientSecret,
 });
+console.log(client);
 
 // take an array and return arr selecting only =limit # of elements
 module.exports.minimizeAndRandArr = (arr, targetLength) => {
@@ -49,6 +51,7 @@ module.exports.getTagsFromClarifai = (photoArray) => {
       console.log('Error in accessing Clarifai token', err);
       return;
     }
+
     console.log(accessToken);
   //   // TODO: Photo Array May need cleaning up
   // const arrayOfPhotos = photoArray;
@@ -68,6 +71,7 @@ module.exports.getTagsFromClarifai = (photoArray) => {
   //     return newPhoto;
   //   });
   // });
+    
     client.tagFromUrls('image', photoArray, (error, results) => {
       if (error) {
         console.log(err);
