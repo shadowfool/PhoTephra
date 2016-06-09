@@ -150,7 +150,6 @@ module.exports.categorize = {
         adventurous: [],
         headshot: [],
       };
-
       if (err) {
         console.error(err);
         res.end(500);
