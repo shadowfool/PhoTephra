@@ -1,7 +1,8 @@
 // const _ = require('lodash');
 const Clarifai = require('clarifai');
-const TaggedImages = require('./TaggedImages');
+const DbForSavingPhotoAPIResults = require('./DbForSavingPhotoAPIResults');
 const key = require('../../keys.js');
+
 console.log(key);
 
 const client = new Clarifai({
@@ -53,10 +54,10 @@ module.exports.getTags = (photoArray, callback) => {
       return;
     }
 
-    const taggedImages = new TaggedImages();
+    const db = new DbForSavingPhotoAPIResults();
 
     // Check if these have already been checked
-    taggedImages.retrieveUsingArray(photoArray, (dbRetrieveErr, imagesFound, imagesNotFound) => {
+    db.retrieveUsingArray(photoArray, (dbRetrieveErr, imagesFound, imagesNotFound) => {
       console.log('images in db:', imagesFound.length);
       console.log('images not in db:', imagesNotFound.length);
       if (dbRetrieveErr) {
@@ -76,7 +77,7 @@ module.exports.getTags = (photoArray, callback) => {
           images[i] = { url: imagesNotFound[i], apiData: newlyTagged[i] };
 
           // Add image to db
-          taggedImages.add(images[i].url, images[i].apiData, saveToDbCallback);
+          db.add(images[i].url, images[i].apiData, saveToDbCallback);
           console.log('newly tagged:', images[i].url);
         }
         images = images.concat(imagesFound);
