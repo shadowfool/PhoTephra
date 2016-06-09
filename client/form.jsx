@@ -1,11 +1,9 @@
 import React from 'react';
 import Promise from 'bluebird';
-import $Sync from 'jquery';
+import $ from 'jquery';
 import { hashHistory } from 'react-router';
 import _ from 'lodash';
 
-// const FBa = Promise.promisifyAll(FB);
-const $ = Promise.promisifyAll($Sync);
 class Form extends React.Component {
   constructor(props) {
     super(props);
@@ -54,13 +52,16 @@ class Form extends React.Component {
         id: window.fbId,
         photos: response,
       };
-      $.postAsync({
+      $.post({
         url: 'api/categorize',
         data: JSON.stringify(imagesArray),
-        contentType: 'application/json',
+        contentType: 'application/json'
       })
-      .then(() => console.log('yess'))
-      .catch(err => console.error(err));
+      .done((d) => {
+        console.log(`got the d ${JSON.stringify(d, null, 2)}`);
+        console.log('yess');
+      })
+      .fail(err => console.error(err));
     });
   }
 
