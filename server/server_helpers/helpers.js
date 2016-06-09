@@ -85,10 +85,10 @@ module.exports.getTags = (photoArray, callback) => {
   .then(() => {
     console.log(`${imagesNotFoundInDb.length} images successfully added to db`);
     images = images.concat(imagesFoundInDb);
+    callback(null, images);
   })
   .catch(err => callback(err));
 
-  callback(null, images);
     //   // TODO: Photo Array May need cleaning up
     // const arrayOfPhotos = photoArray;
     // client.tagFromUrls('image', arrayOfPhotos, (err1, results) => {
