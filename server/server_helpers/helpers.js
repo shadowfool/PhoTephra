@@ -3,7 +3,7 @@ const Promise = require('bluebird');
 const Clarifai = require('clarifai');
 const DbForSavingPhotoAPIResults = require('./DbForSavingPhotoAPIResults');
 const key = require('../../keys.js');
-const categories = require('./categories.js')
+const categories = require('./categories.js');
 const client = Promise.promisifyAll(
   new Clarifai({
     id: key.clarifaiClientID,
@@ -91,8 +91,7 @@ module.exports.classifyTags = (tags) => {
   // Input is an array of tags
   // Output is an array of one or multiple categories (ex: ['professional', 'headshot'])
   const categorized = [];
-
-  _.forEach(categories, (value, index) => {
+  _.each(categories, (value, index) => {
     // Look at all the tags
     for (let i = 0; i < tags.length; i++) {
       // If it is inside the categories array, push it but break immediately
@@ -103,7 +102,6 @@ module.exports.classifyTags = (tags) => {
       }
     }
   });
-
   return categorized;
 };
 

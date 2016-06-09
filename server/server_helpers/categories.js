@@ -8,12 +8,3 @@ const categories = {
 };
 
 module.exports = categories;
-
-const catResponse = {
-  professional: [],
-  athletic: [],
-  adventurous: [],
-  headshot: [],
-};
-
-module.exports = catResponse;

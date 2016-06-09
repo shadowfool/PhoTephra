@@ -143,23 +143,35 @@ module.exports.dashboard = {
 
 module.exports.categorize = {
   post(req, res) {
-    // Input: Array of photo URLs
-    const categorizedResponse = categories.catResponse;
-    helpers.getTags(req.body, (photoArray) => {
+    helpers.getTags(req.body, (err, images) => {
+      const categorizedResponse = {
+        professional: [],
+        athletic: [],
+        adventurous: [],
+        headshot: [],
+      };
+
+      if (err) {
+        console.error(err);
+        return;
+      }
+      // console.log(JSON.stringify(images));
+      const photoArray = [];
+      _.each(images, (pictureFromAPI) => {
+        const imageUrl = pictureFromAPI.url;
+        const categorized = helpers.classifyTags(pictureFromAPI.apiData[0].tags);
+        photoArray.push({ url: imageUrl, categories: categorized });
+      }
       _.each(photoArray, (photo) => {
-
-      })
-      // For each url, look at the category, and push into the corresponding array;
-
+        // console.log('photo', photo);
+        _.each(photo.categories, (category) => {
+          // console.log('category', categorizedResponse[category]);
+          categorizedResponse[category].push(photo.url);
+        });
+      });
+      res.json(categorizedResponse);
     });
-    
-
-
-
     // Output: Respond with object with categories that contains arrays with URLs
-
-
-
   },
 
 };
