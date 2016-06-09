@@ -5,9 +5,12 @@ const key = require('../../keys.js');
 class DbForSavingPhotoAPIResults {
   constructor() {
     const dbUri = `mongodb://${key.dbUser}:${key.dbPassword}@${key.dbAddress}`;
+    const imageSchema = {
+      url: { type: String, required: true, unique: true },
+      tags: { type: Array, default: [] },
+    };
     this.db = mongoose.connect(dbUri);
-    this.Image = mongoose.model('Image',
-      DbForSavingPhotoAPIResults.imageSchema);
+    this.Image = mongoose.model('Image', imageSchema);
   }
 
   // .add(imageUrl, tags[], callback(err))
@@ -28,7 +31,7 @@ class DbForSavingPhotoAPIResults {
   retrieveAll(callback) {
     this.Image.find({}, callback);
   }
-  // .retrieveUsingArray(imageUrls[], callback(err, imagesFound[{}], imagesNotFound[]))
+  // .retrieveUsingArray(imageUrls[], callback(err, { imagesFound[{}], imagesNotFound[] }))
   retrieveUsingArray(urls, callback) {
     const imagesFound = [];
     const imagesNotFound = [];
@@ -50,16 +53,12 @@ class DbForSavingPhotoAPIResults {
 
         // Callback when all items are checked
         if (--callbacksRemaining === 0) {
-          callback(null, imagesFound, imagesNotFound);
+          callback(null, { imagesFound, imagesNotFound });
         }
       });
     });
   }
 }
-DbForSavingPhotoAPIResults.imageSchema = new mongoose.Schema({
-  url: { type: String, required: true, unique: true },
-  tags: { type: Array, default: [] },
-});
 
 // // EXAMPLE USE
 // const imageTags = new DbForSavingPhotoAPIResults();

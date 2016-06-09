@@ -1,15 +1,14 @@
 // const _ = require('lodash');
+const Promise = require('bluebird');
 const Clarifai = require('clarifai');
 const DbForSavingPhotoAPIResults = require('./DbForSavingPhotoAPIResults');
 const key = require('../../keys.js');
-
-console.log(key);
-
-const client = new Clarifai({
-  id: key.clarifaiClientID,
-  secret: key.clarifaiClientSecret,
-});
-console.log(client);
+const client = Promise.promisifyAll(
+  new Clarifai({
+    id: key.clarifaiClientID,
+    secret: key.clarifaiClientSecret,
+  })
+);
 
 // take an array and return arr selecting only =limit # of elements
 module.exports.minimizeAndRandArr = (arr, targetLength) => {
@@ -48,56 +47,48 @@ module.exports.getTags = (photoArray, callback) => {
     // Send ajax request to Clarifai server in its required format
   // let returnArray = [];
   // Get new access token
-  client.getAccessToken((clarifaiAccessErr, accessToken) => {
-    if (clarifaiAccessErr) {
-      callback(clarifaiAccessErr);
-      return;
+  const db = Promise.promisifyAll(new DbForSavingPhotoAPIResults());
+  let imagesFoundInDb;
+  let imagesNotFoundInDb;
+  let images;
+  client.getAccessTokenAsync()
+
+  // See what is already in the db
+  .then(() => db.retrieveUsingArrayAsync(photoArray))
+
+  // Tag items not found in db
+  .then(({ imagesFound, imagesNotFound }) => {
+    imagesFoundInDb = imagesFound;
+    imagesNotFoundInDb = imagesNotFound;
+    console.log('images in db:', imagesFoundInDb.length);
+    console.log('images not in db:', imagesNotFoundInDb.length);
+
+    if (imagesNotFoundInDb.length > 0) {
+      return client.tagFromUrlsAsync('image', imagesNotFoundInDb);
     }
+    // if no images needed to lookup resolve with blank array
+    return new Promise(resolve => resolve([]));
+  })
 
-    const db = new DbForSavingPhotoAPIResults();
+  // Save tags from images not found into db
+  .then((newlyTagged) => {
+    const dbAddPromises = [];
+    images = Array(imagesNotFoundInDb.length);
+    for (let i = 0; i < imagesNotFoundInDb.length; i++) {
+      images[i] = { url: imagesNotFoundInDb[i], apiData: newlyTagged[i] };
+      dbAddPromises.push(db.addAsync(images[i].url, images[i].apiData));
+    }
+    return Promise.all(dbAddPromises);
+  })
 
-    // Check if these have already been checked
-    db.retrieveUsingArray(photoArray, (dbRetrieveErr, imagesFound, imagesNotFound) => {
-      console.log('images in db:', imagesFound.length);
-      console.log('images not in db:', imagesNotFound.length);
-      if (dbRetrieveErr) {
-        callback(dbRetrieveErr);
-        return;
-      }
-      const finishedCallback = (newlyTagged) => {
-        let images = Array(imagesNotFound.length);
-        const saveToDbCallback = saveToDbErr => {
-          if (saveToDbErr) {
-            callback(saveToDbErr);
-            return;
-          }
-          console.log('saved something to DB');
-        };
-        for (let i = 0; i < imagesNotFound.length; i++) {
-          images[i] = { url: imagesNotFound[i], apiData: newlyTagged[i] };
+  // Combine all images in one array
+  .then(() => {
+    console.log(`${imagesNotFoundInDb.length} images successfully added to db`);
+    images = images.concat(imagesFoundInDb);
+  })
+  .catch(err => callback(err));
 
-          // Add image to db
-          db.add(images[i].url, images[i].apiData, saveToDbCallback);
-          console.log('newly tagged:', images[i].url);
-        }
-        images = images.concat(imagesFound);
-        callback(null, images);
-      };
-
-      if (imagesNotFound.length > 0) {
-        client.tagFromUrls('image', imagesNotFound, (clarifaiTagErr, newlyTagged) => {
-          if (clarifaiTagErr) {
-            callback(clarifaiTagErr);
-            return;
-          }
-          finishedCallback(newlyTagged);
-        });
-      } else {
-        finishedCallback([]);
-      }
-    });
-
-    console.log(accessToken);
+  callback(null, images);
     //   // TODO: Photo Array May need cleaning up
     // const arrayOfPhotos = photoArray;
     // client.tagFromUrls('image', arrayOfPhotos, (err1, results) => {
@@ -117,7 +108,6 @@ module.exports.getTags = (photoArray, callback) => {
     //   });
     // });
 
-  });
   // console.log(client.tagFromUrls);
   // Returns array of photos with tags from clarifai
   // [{results: [url: 'url', result: {tag: {classes: [...] }, {probs: [...] }   }]   }]
