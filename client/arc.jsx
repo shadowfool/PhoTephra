@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom'; 
+import ReactDOM from 'react-dom';
 import Lightbox from 'react-images';
 
 
@@ -18,37 +18,36 @@ class Arc extends React.Component {
     this.openLightbox = this.openLightbox.bind(this);
   }
 
-  openLightbox (index, event) {
+  openLightbox(index, event) {
     event.preventDefault();
     this.setState({
       currentImage: index,
       lightboxIsOpen: true,
     });
   }
-  closeLightbox () {
+  closeLightbox() {
     this.setState({
       currentImage: 0,
       lightboxIsOpen: false,
     });
   }
-  gotoPrevious () {
+  gotoPrevious() {
     this.setState({
       currentImage: this.state.currentImage - 1,
     });
   }
-  gotoNext () {
+  gotoNext() {
     this.setState({
       currentImage: this.state.currentImage + 1,
     });
   }
-  handleClickImage () {
-    if (this.state   === this.props.images.length - 1) return;
+  handleClickImage() {
+    if (this.state === this.props.images.length - 1) return;
 
     this.gotoNext();
   }
 
-  
-  renderGallery () {
+  renderGallery() {
     if (!this.props.photoArc) return;
     const gallery = this.props.photoArc.map((obj, i) => {
       return (
@@ -57,8 +56,9 @@ class Arc extends React.Component {
           key={i}
           onClick={(e) => this.openLightbox(i, e)}
           style={styles.thumbnail}
-          >
+        >
           <img
+            alt="I'ts a"
             height={styles.thumbnail.size}
             src={obj.thumbnail}
             style={styles.thumbnailImage}
@@ -67,15 +67,13 @@ class Arc extends React.Component {
         </a>
       );
     });
-
     return (
       <div className="section" style={styles.gallery}>
         {gallery}
       </div>
     );
   }
-  
-    render () {
+    render() {
       return (
         <div style={styles.container}>
             {this.renderGallery()}
@@ -90,14 +88,13 @@ class Arc extends React.Component {
           />
         </div>
     );
-  }
-
-};
+    }
+}
 
 // PropTypes tell other developers what `props` a component expects
 // Warnings will be shown in the console when the defined rules are violated
 Arc.propTypes = {
-  photoArc: React.PropTypes.array.isRequired
+  photoArc: React.PropTypes.array.isRequired,
 };
 
 const THUMBNAIL_SIZE = 80;
@@ -107,7 +104,7 @@ const styles = {
     width: '100%',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   gallery: {
     marginLeft: 0,
@@ -127,7 +124,7 @@ const styles = {
     display: 'block',
     height: 'auto',
     maxWidth: '100%',
-    height: THUMBNAIL_SIZE
+    height: THUMBNAIL_SIZE,
     // left: '50%',
     // position: 'relative',
     //

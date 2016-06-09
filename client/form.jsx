@@ -1,38 +1,38 @@
 import React from 'react';
-import $ from 'jquery'; 
+import $ from 'jquery';
 import { hashHistory } from 'react-router';
 
 class Form extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			startDate: null,
-			endDate: null, 
-			options: null
-		}
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.dropdownSelect = this.dropdownSelect.bind(this);
-    this.submitHandler = this.submitHandler.bind(this); 
-	}
-  
-  submitHandler (startDate, endDate, options) {
+  constructor(props) {
+    super(props);
+    this.state = {
+      startDate: null,
+      endDate: null,
+      options: null,
+    };
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.dropdownSelect = this.dropdownSelect.bind(this);
+    this.submitHandler = this.submitHandler.bind(this);
+  }
+
+  submitHandler(startDate, endDate) {
     console.log(startDate, endDate, 'in submit handler');
     FB.api('me/photos?fields=images,created_time&limit=2000&until='+endDate+'&since='+startDate, function (response) {
       console.log(response);
-      var data = {
-              id: window.fbId,
-              photos: response
-            };
+      const data = {
+        id: window.fbId,
+        photos: response,
+      };
       $.post({
         url: '/create',
         data: JSON.stringify(data),
-        contentType: "application/json",
-        success: function() {
+        contentType: 'application/json',
+        success: () => {
           console.log('success');
-          hashHistory.push('dashboard');  
-        }
+          hashHistory.push('dashboard');
+        },
       });
-    }); 
+    });
   }
 
 	handleSubmit (e) {
