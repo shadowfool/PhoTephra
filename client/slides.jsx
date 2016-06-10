@@ -17,10 +17,10 @@ const Slides = (props) => (
     <div itemStyle={{ backgroundColor: '#002D8E' }}>
       <div className="Aligner  centering text-center">
         <div className="col-md-8 choiceAligner choiceContainer">
-          <div className="content h1">
-          Headshot
+          <div className="content">
+          <h1>Headshot</h1>
             <div className="photoContainer">
-              {props.images.headshot.map(image => <img className='photo' src={image} />)}
+              {props.images.headshot.map(image => <img className='photo' src={image.urls} />)}
             </div>
           </div>
         </div>
@@ -30,9 +30,9 @@ const Slides = (props) => (
       <div className="Aligner centering text-center">
         <div className="col-md-8 choiceAligner choiceContainer">
           <div className="content h1">
-            Professional
+            <h1>Professional</h1>
             <div className="photoContainer">
-              {props.images.professional.map(image => <img className='photo' src={image} />)}
+              {props.images.professional.map(image => <img className='photo' src={image.urls} />)}
             </div>
           </div>
         </div>
@@ -42,9 +42,9 @@ const Slides = (props) => (
       <div className="Aligner centering text-center">
         <div className="col-md-8 choiceAligner choiceContainer">
           <div className="content h1">
-            Athletic
+            <h1>Athletic</h1>
             <div className="photoContainer">
-              {props.images.athletic.map(image => <img className='photo' src={image} />)}
+              {props.images.athletic.map(image => <img className='photo' src={image.urls} />)}
             </div>
           </div>
         </div>
@@ -54,9 +54,9 @@ const Slides = (props) => (
       <div className="Aligner  centering text-center">
         <div className="col-md-8 choiceAligner choiceContainer">
           <div className="content h1">
-            Adventurous
+            <h1>Adventurous</h1>
             <div className="photoContainer">
-              {props.images.adventurous.map(image => <img className='photo' src={image} />)}
+              {props.images.adventurous.map(image => <img className='photo' src={image.urls} />)}
             </div>
           </div>
         </div>
