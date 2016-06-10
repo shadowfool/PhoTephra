@@ -161,7 +161,6 @@ module.exports.categorize = {
         const tags = photo.apiData.tags;
         photoArray.push({ imageUrl, categorized, tags });
       });
-      console.log('Photoarray', photoArray);
       _.each(photoArray, (photo) => {
         _.each(photo.categorized, (category) => {
           const urls = photo.imageUrl;

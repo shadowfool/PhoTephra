@@ -7,7 +7,7 @@
 // });
 
 // const helpers = require('./helpers.js');
-// const categories = require('./categories.js');
+const categories = require('./categories.js');
 const _ = require('lodash');
 
 const testImages = [
@@ -82,13 +82,39 @@ const options = {
     path: 'http://api.icndb.com/jokes/random?firstName=Felix&lastName=Feng',
   };
 
-var request = require('request');
-request(options.host, function (error, response, body) {
-  if (error) {
-    console.log(error);
-  }
-  if (!error && response.statusCode == 200) {
-    console.log(JSON.parse(body)); // Show the HTML for the Google homepage.
-    // console.log(response);
-  }
-}
+// var request = require('request');
+// request(options.host, function (error, response, body) {
+//   if (error) {
+//     console.log(error);
+//   }
+//   if (!error && response.statusCode == 200) {
+//     console.log(JSON.parse(body)); // Show the HTML for the Google homepage.
+//     // console.log(response);
+//   }
+// }
+
+const classifyTags = (tags) => {
+  const categorized = [];
+  _.each(categories, (value, index) => {
+    for (let i = 0; i < tags.length; i++) {
+      if (_.indexOf(value.include, tags[i].class) !== -1) {
+        // We need to make sure none of the tags are in the excluded array
+        console.log('Tag included', tags[i].class);
+        let flag = false;
+        for (let j = 0; j < tags.length; j++) {
+          if (_.indexOf(value.exclude, tags[j].class) !== -1) {
+            console.log('Should be true', tags[j].class);
+            flag = true;
+          }
+        }
+        if (flag === false) {
+          categorized.push(index);
+          break;
+        }
+      }
+    }
+  });
+  console.log("Categorized", categorized);
+};
+
+classifyTags([{class: 'success'}, {class: 'portrait'}, {class: 'people'} ]);

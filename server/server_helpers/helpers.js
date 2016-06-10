@@ -98,18 +98,24 @@ module.exports.getTags = (photoArray, callback) => {
 };
 
 module.exports.classifyTags = (tags) => {
-//   // TODO: Complete Function
-  // Input is an array of tags
-  // Output is an array of one or multiple categories (ex: ['professional', 'headshot'])
+  const filteredTags = _.filter(tags, (tag) =>
+    tag.probability > 0.9
+  );
+
   const categorized = [];
   _.each(categories, (value, index) => {
-    // Look at all the tags
-    for (let i = 0; i < tags.length; i++) {
-      // If it is inside the categories array, push it but break immediately
-      // so there are no duplicate categories
-      if (_.indexOf(value, tags[i].class) !== -1) {
-        categorized.push(index);
-        break;
+    for (let i = 0; i < filteredTags.length; i++) {
+      if (_.indexOf(value.include, filteredTags[i].class) !== -1) {
+        let flag = false;
+        for (let j = 0; j < filteredTags.length; j++) {
+          if (_.indexOf(value.exclude, filteredTags[j].class) !== -1) {
+            flag = true;
+          }
+        }
+        if (flag === false) {
+          categorized.push(index);
+          break;
+        }
       }
     }
   });
