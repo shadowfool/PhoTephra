@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import _ from 'lodash';
-
+import AboutUs from './aboutUs';
 import Login from './login';
 import Nav from './nav';
 import Slides from './slides';
@@ -82,14 +82,27 @@ class App extends React.Component {
       // slides: (<Slides photos={this.state.photos} />),
       slides: (
         <div id="wrapper" className={this.state.toggle}>
-          <Nav />
+          <Nav setView={this.setView} />
           <div id="page-content-wrapper">
             <div className="horizontalBar">
               <button id="menu-toggle" className="btn btn-lg" onClick={this.setToggle}>
-                <span className="glyphicon glyphicon-menu-hamburger"></span>
+                <span id="hamburger" className="glyphicon glyphicon-menu-hamburger"></span>
               </button>
             </div>
-            <Slides photos={this.state.photos} images={this.state.images}/>
+            <Slides photos={this.state.photos} images={this.state.images} />
+          </div>
+        </div>
+      ),
+      aboutUs: (
+        <div id="wrapper" className={this.state.toggle}>
+          <Nav setView={this.setView} />
+          <div id="page-content-wrapper">
+            <div className="horizontalBar">
+              <button id="menu-toggle" className="btn btn-lg" onClick={this.setToggle}>
+                <span id="hamburger" className="glyphicon glyphicon-menu-hamburger"></span>
+              </button>
+            </div>
+            <AboutUs />
           </div>
         </div>
       ),
