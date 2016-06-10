@@ -4,19 +4,6 @@ const helpers = require('./server_helpers/middleware');
 const requestHandler = require('./server_helpers/request-handler');
 const bodyParser = require('body-parser');
 
-// const db = require('./db/config.js');
-
-/** Loads all models and collections
-* Models represents the rows
-* Collections represents the table itself
-*/
-// const Image = require('./db/models/image.js');
-// const Images = require('./db/collections/images.js');
-// const Arc = require('./db/models/arc.js');
-// const Arcs = require('./db/collections/arcs.js');
-// const User = require('./db/models/user.js');
-// const Users = require('./db/collections/users.js');
-
 const app = express();
 
 const port = 4000;
@@ -33,13 +20,15 @@ app.get('/', requestHandler.main.get);
 app.get('/signin', requestHandler.signin.get);
 app.post('/signin', requestHandler.signin.post);
 
-app.get('/create', requestHandler.create.get);
-app.post('/create', requestHandler.create.post);
+// app.get('/create', requestHandler.create.get);
+// app.post('/create', requestHandler.create.post);
 
-app.get('/dashboard', requestHandler.dashboard.get);
+// app.get('/dashboard', requestHandler.dashboard.get);
 
 app.post('/api/categorize', requestHandler.categorize.post);
 
 app.listen(port, () => {
   console.log('Listening on port:', port, '!');
 });
+
+module.exports = app;

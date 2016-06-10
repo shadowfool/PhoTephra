@@ -70,6 +70,7 @@ class App extends React.Component {
         contentType: 'application/json',
       })
       .done((categorizedImages) => {
+        console.log(categorizedImages);
         this.setState({ images: categorizedImages });
       })
       .fail(err => console.error(err));
