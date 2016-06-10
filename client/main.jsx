@@ -1,8 +1,6 @@
 import React from 'react';
 import Nav from './nav';
-import { Button } from 'react-bootstrap';
-import Feed from './feed';
-import Slides from './slides';
+import $ from 'jquery';
 
 class Main extends React.Component {
   constructor(props) {
@@ -16,9 +14,9 @@ class Main extends React.Component {
     $.post({
       url: '/create',
       data: {
-        startDate: startDate,
-        endDate: endDate,
-        options: options,
+        startDate,
+        endDate,
+        options,
       },
       success: () => {
         console.log('success');

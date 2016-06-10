@@ -50,7 +50,8 @@ class FacebookButton extends React.Component {
               $.post('/signin', { name: response.name, userId: response.id, access_token: access_token }).done(() => {
                 window.fbId = response.id;
                 window.access_token = access_token;
-                hashHistory.push('dashboard');
+                console.log('AUTHENTICATED');
+                self.props.setView('slides');
               }).fail((err) => {
                 console.log(err, 'error in checkLoginState');
               });
@@ -64,9 +65,9 @@ class FacebookButton extends React.Component {
   }
 
   logout() {
+    const self = this;
     FB.logout(() => {
       self.setState({ authenticated: false });
-      hashHistory.push('/login');
     });
   }
 
@@ -93,5 +94,7 @@ class FacebookButton extends React.Component {
     );
   }
 }
-
+FacebookButton.propTypes = {
+  setView: React.PropTypes.object,
+};
 export default FacebookButton;
