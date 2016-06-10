@@ -173,3 +173,9 @@ module.exports.categorize = {
     });
   },
 };
+
+// Generate random comment
+  // Myers Briggs
+  // Horoscope
+  // Funny comments. Jokes
+

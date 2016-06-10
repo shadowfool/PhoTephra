@@ -1,9 +1,11 @@
 const _ = require('lodash');
+const request = require('request');
 const Promise = require('bluebird');
 const Clarifai = require('clarifai');
 const DbForSavingPhotoAPIResults = require('./DbForSavingPhotoAPIResults');
 const key = require('../../keys.js');
 const categories = require('./categories.js');
+const app = require('../server.js');
 const client = Promise.promisifyAll(
   new Clarifai({
     id: key.clarifaiClientID,
@@ -114,8 +116,24 @@ module.exports.classifyTags = (tags) => {
   return categorized;
 };
 
+// Get myers briggs personality from a text
+module.exports.generateText = () => {
+  const tagLines = [
+    'Professional pillow fighter.',
+    'Ranked 5th in the world for thumb wrestling.',
+    'Shakira told me my hips don’t lie.',
+    'Runner-up at the world championship of snuggling.',
+    'Naked & Afraid occasionally constitutes as foreplay for me.',
+    'World champion of warm smiles.',
+    'It was the best of dates, it was the worst of dates.',
+    'Magic carpet certified',
+    'I love long carriage rides into the sunset',
+    'Dancing in the moonlight… it just feels so right',
+    'Looking for something dumb to do..',
+    'Our relationship should be like Nintendo 64-- classic, fun to spend hours with, and every issue is easily fixed by blowing on it then shoving it back in',
+  ];
+  return tagLines[Math.floor(Math.random() * tagLines.length)];
+};
 
-// Helper Functions that I need
-  // Get the facebook photos that I need from the array Andy is sending me
-    // PENDING: May already have from createArrayofPhotos Helper
+
 

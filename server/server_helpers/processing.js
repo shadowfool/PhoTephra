@@ -6,7 +6,7 @@
 //   secret: key.clarifaiClientSecret,
 // });
 
-const helpers = require('./helpers.js');
+// const helpers = require('./helpers.js');
 // const categories = require('./categories.js');
 const _ = require('lodash');
 
@@ -28,34 +28,67 @@ const testImages = [
   // "https://scontent.xx.fbcdn.net/v/t1.0-9/10372539_10202332334659952_3436401212391021871_n.jpg?oh=33c969e2bb49e78a5e7dc6da2731470a&oe=57CBDCF9#.jpg"
 ];
 
-helpers.getTags(testImages, (err, images) => {
-  const categorizedResponse = {
-    professional: [],
-    athletic: [],
-    adventurous: [],
-    headshot: [],
+// helpers.getTags(testImages, (err, images) => {
+//   const categorizedResponse = {
+//     professional: [],
+//     athletic: [],
+//     adventurous: [],
+//     headshot: [],
+//   };
+
+//   if (err) {
+//     console.error(err);
+//     return;
+//   }
+//   const photoArray = [];
+//   _.each(images, (photo) => {
+//     const imageUrl = photo.url;
+//     const categorized = helpers.classifyTags(photo.apiData.tags);
+//     photoArray.push({ imageUrl, categorized });
+//   });
+//   console.log('Photoarray', photoArray);
+//   _.each(photoArray, (photo) => {
+//     // console.log('photo', photo);
+//     _.each(photo.categorized, (category) => {
+//       // console.log('category', categorizedResponse[category]);
+//       categorizedResponse[category].push(photo.imageUrl);
+//     });
+//   });
+//   console.log(categorizedResponse);
+// });
+
+// const generateText = () => {
+//   const tagLines = [
+//     'Professional pillow fighter.',
+//     'Ranked 5th in the world for thumb wrestling.',
+//     'Shakira told me my hips don’t lie.',
+//     'Runner-up at the world championship of snuggling.',
+//     'Naked & Afraid occasionally constitutes as foreplay for me.',
+//     'World champion of warm smiles.',
+//     'It was the best of dates, it was the worst of dates.',
+//     'Magic carpet certified',
+//     'I love long carriage rides into the sunset',
+//     'Dancing in the moonlight… it just feels so right',
+//     'Looking for something dumb to do..',
+//     'Our relationship should be like Nintendo 64-- classic, fun to spend hours with, and every issue is easily fixed by blowing on it then shoving it back in',
+//   ];
+//   return tagLines[Math.floor(Math.random() * tagLines.length)];
+// };
+
+// console.log(generateText());
+
+const options = {
+    host: "http://quotesondesign.com/wp-json/posts?filter[orderby]=rand&filter[posts_per_page]=1&callback=",
+    path: 'http://api.icndb.com/jokes/random?firstName=Felix&lastName=Feng',
   };
 
-  if (err) {
-    console.error(err);
-    return;
+var request = require('request');
+request(options.host, function (error, response, body) {
+  if (error) {
+    console.log(error);
   }
-  const photoArray = [];
-  _.each(images, (photo) => {
-    const imageUrl = photo.url;
-    const categorized = helpers.classifyTags(photo.apiData.tags);
-    const tags = photo.apiData.tags;
-    photoArray.push({ imageUrl, categorized, tags });
-  });
-  // console.log('Photoarray', photoArray);
-  _.each(photoArray, (photo) => {
-    // console.log('photo', photo);
-    _.each(photo.categorized, (category) => {
-      // console.log('category', categorizedResponse[category]);
-      const url = photo.imageUrl;
-      const tags = photo.tags;
-      categorizedResponse[category].push({ url, tags });
-    });
-  });
-  console.log(JSON.stringify(categorizedResponse));
-});
+  if (!error && response.statusCode == 200) {
+    console.log(JSON.parse(body)); // Show the HTML for the Google homepage.
+    // console.log(response);
+  }
+}
