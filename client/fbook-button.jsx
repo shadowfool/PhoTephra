@@ -1,11 +1,14 @@
 import React from 'react';
 import $ from 'jquery';
+import Promise from 'bluebird';
 import { hashHistory } from 'react-router';
 
 
 class FacebookButton extends React.Component {
   constructor(props) {
     super(props);
+    this.checkLoginState = this.checkLoginState.bind(this);
+    this.logout = this.logout.bind(this);
     this.state = {
       authenticated: false,
       userMessage: '',
@@ -33,25 +36,25 @@ class FacebookButton extends React.Component {
      }(document, 'script', 'facebook-jssdk'));
   }
 
+  
   checkLoginState() {
-    const self = this;
+    
     FB.getLoginStatus((response) => {
-      console.log(response);
       if (response.status === 'connected') {
-        self.setState({ authenticated: true });
+        this.setState({ authenticated: true });
+                this.props.getImages();
+                this.props.setView('slides');
       } else {
         FB.login((response) => {
-          console.log(response, 'outside api call');
           let access_token = response.authResponse.accessToken;
           if (response.authResponse) {
             FB.api('/me', () => {
-              self.setState({ authenticated: true });
-              console.log('in api call', response);
+              this.setState({ authenticated: true });
               $.post('/signin', { name: response.name, userId: response.id, access_token: access_token }).done(() => {
                 window.fbId = response.id;
                 window.access_token = access_token;
-                console.log('AUTHENTICATED');
-                self.props.setView('slides');
+                this.props.getImages();
+                this.props.setView('slides');
               }).fail((err) => {
                 console.log(err, 'error in checkLoginState');
               });
@@ -65,9 +68,8 @@ class FacebookButton extends React.Component {
   }
 
   logout() {
-    const self = this;
     FB.logout(() => {
-      self.setState({ authenticated: false });
+      this.setState({ authenticated: false });
     });
   }
 
@@ -95,6 +97,7 @@ class FacebookButton extends React.Component {
   }
 }
 FacebookButton.propTypes = {
-  setView: React.PropTypes.object,
+  setView: React.PropTypes.func,
+  getImages: React.PropTypes.func,
 };
 export default FacebookButton;

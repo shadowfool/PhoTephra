@@ -8,13 +8,18 @@ const Login = (props) => (
       <div className="col-md-8 col-md-offset-7 Aligner-item opaqueContainer">
         <h1>Photephra • /fʌ/ˈtɛ.fɹə/</h1>
         <h3>Photo curation for the perfect profile</h3>
-        <FacebookButton className="col-md-3" setView={props.setView} />
+        <FacebookButton
+          className="col-md-3"
+          setView={props.setView}
+          getImages={props.getImages}
+        />
       </div>
     </div>
   </div>
 );
 Login.propTypes = {
-  setView: React.PropTypes.object,
+  setView: React.PropTypes.func,
+  getImages: React.PropTypes.func,
 };
 export default Login;
 
