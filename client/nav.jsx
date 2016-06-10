@@ -15,10 +15,7 @@ const topNav = () => (
           </a>
         </li>
         <li>
-          <Link to="/dashboard" activeClassName="active">Dashboard</Link>
-        </li>
-        <li>
-          <Link to="/create" activeClassName="active">OLD STUFF NOT NEEDED</Link>
+          <Link to="/create" activeClassName="active">Click the button</Link>
         </li>
         <li>
           <Link to="/slides" activeClassName="active">Create new Profile</Link>
