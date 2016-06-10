@@ -1,16 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import { Router, Route, hashHistory } from 'react-router';
 import _ from 'lodash';
 
 import Login from './login';
-// import Main from './main';
-// // import Feed from './feed';
-// import Form from './form';
 import Nav from './nav';
 import Slides from './slides';
-// import { Button } from 'react-bootstrap';
-// import $ from 'jquery';
+import $ from 'jquery';
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -22,17 +18,19 @@ class App extends React.Component {
       photos: {},
       view: 'login',
       toggle: '',
+      images: {
+        headshot: [],
+        athletic: [],
+        professional: [],
+        adventurous: [],
+      },
     };
     this.render();
   }
   setToggle() {
     this.setState({ toggle: this.state.toggle === 'toggled' ? '' : 'toggled' });
-    console.log('TOGGLING', this.state.toggle);
   }
   setView(view) {
-    console.log('view', view);
-    console.log('\n');
-    console.log('this', this);
     this.setState({ view });
   }
   getImages() {
@@ -49,7 +47,6 @@ class App extends React.Component {
     };
 
     FB.api(`me/photos?fields=images,created_time&limit=${max}&until=${formatDate(end)}&since=${formatDate(start)}`, response => {
-      console.log(response);
       // includes filtering out links with '&' as this seems to cause an issue for calrifai api.
       let imagesArray = response.data.map((item) => {
         for (let i = 0; i < item.images.length; i++) {
@@ -61,9 +58,6 @@ class App extends React.Component {
       });
       // remove blanks from array
       imagesArray = _.filter(imagesArray, d => d !== '');
-      this.setState({ images: imagesArray });
-
-      console.log(JSON.stringify(imagesArray, null, 2));
 
       const data = {
         id: window.fbId,
@@ -74,9 +68,8 @@ class App extends React.Component {
         data: JSON.stringify(imagesArray),
         contentType: 'application/json',
       })
-      .done((d) => {
-        console.log(`got the d ${JSON.stringify(d, null, 2)}`);
-        console.log('yess');
+      .done((categorizedImages) => {
+        this.setState({ images: categorizedImages });
       })
       .fail(err => console.error(err));
     });
@@ -94,7 +87,7 @@ class App extends React.Component {
                 <span className="glyphicon glyphicon-menu-hamburger"></span>
               </button>
             </div>
-            <Slides photos={this.state.photos} />
+            <Slides photos={this.state.photos} images={this.state.images}/>
           </div>
         </div>
       ),
