@@ -46,7 +46,8 @@ class App extends React.Component {
       return `${year}-${month}-${day}`;
     };
 
-    FB.api(`me/photos?fields=images,created_time&limit=${max}&until=${formatDate(end)}&since=${formatDate(start)}`, response => {
+    FB.api(`me/photos?type=tagged&fields=images,created_time&limit=${max}&until=${formatDate(end)}&since=${formatDate(start)}`, response => {
+      console.log(response);
       // includes filtering out links with '&' as this seems to cause an issue for calrifai api.
       let imagesArray = response.data.map((item) => {
         for (let i = 0; i < item.images.length; i++) {
