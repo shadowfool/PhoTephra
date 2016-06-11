@@ -68,7 +68,7 @@ const Slides = (props) => (
           <div className="content h1">
             <h1>Pick Your Tagline</h1>
             <div className="photoContainer">
-              {props.quotes.map(quote => <div className="quote">{quote}</div>)}
+              {props.quotes.map(quote => <div className="container-fluid quote">{quote}</div>)}
             </div>
           </div>
         </div>
