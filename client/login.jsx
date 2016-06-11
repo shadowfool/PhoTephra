@@ -12,6 +12,7 @@ const Login = (props) => (
           className="col-md-3"
           setView={props.setView}
           getImages={props.getImages}
+          getQuotes={props.getQuotes}
         />
       </div>
     </div>
@@ -20,6 +21,7 @@ const Login = (props) => (
 Login.propTypes = {
   setView: React.PropTypes.func,
   getImages: React.PropTypes.func,
+  getQuotes: React.PropTypes.func,
 };
 export default Login;
 

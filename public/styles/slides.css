@@ -31,6 +31,14 @@
   width: 100;
   display: inline;
   box-shadow: .5px 3px 2px .5px rgba(0, 0, 0, 0.15);
+  padding-bottom:10px;
+}
+
+.quote {
+  font-size: 10;
+  background-color: white;
+  width: 200px;
+  box-shadow: .5px 3px 2px .5px rgba(0, 0, 0, 0.15);
 }
 
 
