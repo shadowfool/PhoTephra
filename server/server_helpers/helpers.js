@@ -2,8 +2,10 @@ const _ = require('lodash');
 // const request = require('request');
 const Promise = require('bluebird');
 const Clarifai = require('clarifai');
+const DBForSavingProfile = require('./DBForSavingProfile');
 const DbForSavingPhotoAPIResults = require('./DbForSavingPhotoAPIResults');
 const db = Promise.promisifyAll(new DbForSavingPhotoAPIResults());
+const dbProfile = Promise.promisifyAll(new DBForSavingProfile());
 const key = require('../../keys.js');
 const categories = require('./categories.js');
 const app = require('../server.js');
@@ -42,6 +44,14 @@ module.exports.createArrayOfPhotos = (imageArray) => {
     });
   }
   return result;
+};
+
+module.exports.getProfile = (username, callback) => {
+  dbProfile.retrieveAll(username, callback);
+};
+
+module.exports.postProfile = (username, headshot, athletic, professional, adventurous, quote, callback) => {
+  dbProfile.add(username, headshot, athletic, professional, adventurous, quote, callback);
 };
 
 // Get Tags from Clarifai (memoized on database) and return array with photos

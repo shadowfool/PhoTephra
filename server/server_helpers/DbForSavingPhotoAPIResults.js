@@ -1,16 +1,14 @@
 'use strict';
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const key = require('../../keys.js');
+require('./mongoDbConnection'); // connect to db
 
 class DbForSavingPhotoAPIResults {
   constructor() {
-    const dbUri = `mongodb://${key.dbUser}:${key.dbPassword}@${key.dbAddress}`;
     const imageSchema = new Schema({
       url: { type: String, required: true, unique: true },
       apiData: { type: Object, default: {} },
     });
-    this.db = mongoose.connect(dbUri);
     this.Image = mongoose.model('Image', imageSchema);
   }
 

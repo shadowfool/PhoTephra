@@ -16,6 +16,9 @@ app.use(express.static(__dirname.concat('/../public')));
 app.post('/api/categorize', requestHandler.categorize.post);
 app.get('/api/quotes', requestHandler.getQuotes.get);
 
+app.post('/api/save', requestHandler.save.post);
+app.get('/api/save', requestHandler.save.get);
+
 app.listen(port, () => {
   console.log('Listening on port:', port, '!');
 });
