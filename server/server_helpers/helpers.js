@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const request = require('request');
+// const request = require('request');
 const Promise = require('bluebird');
 const Clarifai = require('clarifai');
 const DbForSavingPhotoAPIResults = require('./DbForSavingPhotoAPIResults');

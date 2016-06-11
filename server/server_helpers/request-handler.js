@@ -5,8 +5,8 @@ const _ = require('lodash');
 // const bluebird = require('bluebird');
 const url = require('url');
 // const db = require('../db/config.js');
-const Users = require('../db/collections/users');
-const User = require('../db/models/user');
+// const Users = require('../db/collections/users');
+// const User = require('../db/models/user');
 
 // const Arc = require('../db/models/arc');
 // const Arcs = require('../db/collections/arcs');
@@ -19,44 +19,44 @@ const categories = require('./categories.js');
 
 // const limit = 5;
 
-module.exports.main = {
-  get(req, res) {
-    res.redirect('/signin');
-  },
-};
+// module.exports.main = {
+//   get(req, res) {
+//     res.redirect('/signin');
+//   },
+// };
 
 // SIGNIN: If user does not exist, add to the database. Then respond
-module.exports.signin = {
-  get(req, res) {
-    res.sendFile(path.normalize(`${__dirname}/../../public/index.html`));
-  },
+// module.exports.signin = {
+//   get(req, res) {
+//     res.sendFile(path.normalize(`${__dirname}/../../public/index.html`));
+//   },
 
-  post(req, res) {
-    // console.log('post request', req.body);
-    Users.reset()
-      .query({ where: { fbId: req.body.userId } })
-      .fetch()
-      .then((allUsers) => {
-        if (allUsers.length > 0) {
-          // this needs to update database and not just console log
-          console.log(`This username, ${req.body.userId} already exists in the database`);
-        } else {
-          new User({
-            name: req.body.name,
-            fbId: req.body.userId,
-            access_token: req.body.access_token,
-          })
-          .save()
-          .then((data) => {
-            console.log('user should have saved', data);
-          });
-        }
-        res.writeHead(201);
-        // res.redirect('/dashboard'); // How do you redirect to React path?
-        res.end();
-      });
-  },
-};
+//   post(req, res) {
+//     // console.log('post request', req.body);
+//     Users.reset()
+//       .query({ where: { fbId: req.body.userId } })
+//       .fetch()
+//       .then((allUsers) => {
+//         if (allUsers.length > 0) {
+//           // this needs to update database and not just console log
+//           console.log(`This username, ${req.body.userId} already exists in the database`);
+//         } else {
+//           new User({
+//             name: req.body.name,
+//             fbId: req.body.userId,
+//             access_token: req.body.access_token,
+//           })
+//           .save()
+//           .then((data) => {
+//             console.log('user should have saved', data);
+//           });
+//         }
+//         res.writeHead(201);
+//         // res.redirect('/dashboard'); // How do you redirect to React path?
+//         res.end();
+//       });
+//   },
+// };
 
 module.exports.categorize = {
   post(req, res) {
