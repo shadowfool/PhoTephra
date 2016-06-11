@@ -101,6 +101,7 @@ module.exports.classifyTags = (tags) => {
   const filteredTags = _.filter(tags, (tag) =>
     tag.probability > 0.9
   );
+  console.log(filteredTags);
 
   const categorized = [];
   _.each(categories, (value, index) => {

@@ -29,8 +29,8 @@
     "express": "^4.4.5",
     "jquery": "^2.2.4",
     "knex": "^0.10.0",
-    "mongoose": "^4.4.20",
     "lodash": "^4.13.1",
+    "mongoose": "^4.4.20",
     "mysql": "^2.10.2",
     "path": "^0.12.7",
     "react": "^15.1.0",
@@ -38,7 +38,8 @@
     "react-dom": "^15.1.0",
     "react-images": "^0.4.6",
     "react-router": "^2.4.1",
-    "react-viewport-slider": "0.0.9"
+    "react-viewport-slider": "0.0.9",
+    "request": "^2.72.0"
   },
   "babel": {
     "presets": [
