@@ -20,12 +20,8 @@ app.get('/', requestHandler.main.get);
 app.get('/signin', requestHandler.signin.get);
 app.post('/signin', requestHandler.signin.post);
 
-// app.get('/create', requestHandler.create.get);
-// app.post('/create', requestHandler.create.post);
-
-// app.get('/dashboard', requestHandler.dashboard.get);
-
 app.post('/api/categorize', requestHandler.categorize.post);
+app.get('/api/quotes', requestHandler.getQuotes.get);
 
 app.listen(port, () => {
   console.log('Listening on port:', port, '!');

@@ -11,11 +11,13 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.getImages = this.getImages.bind(this);
+    this.getQuotes = this.getQuotes.bind(this);
     this.setView = this.setView.bind(this);
     this.setToggle = this.setToggle.bind(this);
 
     this.state = {
       photos: {},
+      quotes: [],
       view: 'login',
       toggle: '',
       images: {
@@ -76,9 +78,35 @@ class App extends React.Component {
       .fail(err => console.error(err));
     });
   }
+
+  getQuotes() {
+    const that = this;
+    $.get({
+      url: 'api/quotes',
+      contentType: 'application/json',
+    })
+    .done((returnedQuotes) => {
+      console.log(returnedQuotes);
+      // Pick 5 Random Quotes
+      const quotes = returnedQuotes.slice();
+      const quoteResults = [];
+      for (let j = 0; j < 5; j++) {
+        const randomIndex = Math.floor(Math.random() * quotes.length);
+        quoteResults.push(quotes[randomIndex]);
+        quotes.splice(randomIndex, 1);
+      }
+      that.setState({ quotes: quoteResults });
+    })
+    .fail((err) => console.error(err));
+  }
+
   render() {
     const views = {
-      login: (<Login setView={this.setView} getImages={this.getImages} />),
+      login: (<Login
+        setView={this.setView}
+        getImages={this.getImages}
+        getQuotes={this.getQuotes}
+      />),
       // slides: (<Slides photos={this.state.photos} />),
       slides: (
         <div id="wrapper" className={this.state.toggle}>
@@ -89,7 +117,11 @@ class App extends React.Component {
                 <span id="hamburger" className="glyphicon glyphicon-menu-hamburger"></span>
               </button>
             </div>
-            <Slides photos={this.state.photos} images={this.state.images} />
+            <Slides
+              photos={this.state.photos}
+              images={this.state.images}
+              quotes={this.state.quotes}
+            />
           </div>
         </div>
       ),

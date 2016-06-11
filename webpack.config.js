@@ -15,6 +15,7 @@ module.exports = {
   resolve: {
     extensions: ['', '.js', '.jsx']
   },
+  devtool: "source-map",
   output: {
     // may change this depending on where we load this into our html
     path: __dirname + '/public', 

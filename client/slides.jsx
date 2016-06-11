@@ -62,6 +62,18 @@ const Slides = (props) => (
         </div>
       </div>
     </div>
+    <div itemStyle={{ backgroundColor: 'grey' }}>
+      <div className="Aligner  centering text-center">
+        <div className="col-md-8 choiceAligner choiceContainer">
+          <div className="content h1">
+            <h1>Pick Your Tagline</h1>
+            <div className="photoContainer">
+              {props.quotes.map(quote => <div className="container-fluid quote">{quote}</div>)}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div itemStyle={{ backgroundColor: '#C9009D' }}>
       <div className="Aligner  centering text-center">
         <div className="col-md-8 choiceAligner choiceContainer">
@@ -73,5 +85,6 @@ const Slides = (props) => (
 );
 Slides.propTypes = {
   images: React.PropTypes.object,
+  quotes: React.PropTypes.object,
 };
 export default Slides;

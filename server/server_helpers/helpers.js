@@ -124,7 +124,7 @@ module.exports.classifyTags = (tags) => {
 };
 
 // Get myers briggs personality from a text
-module.exports.generateText = () => {
+module.exports.generateTagline = () => {
   const tagLines = [
     'Professional pillow fighter.',
     'Ranked 5th in the world for thumb wrestling.',
@@ -139,7 +139,8 @@ module.exports.generateText = () => {
     'Looking for something dumb to do..',
     'Our relationship should be like Nintendo 64-- classic, fun to spend hours with, and every issue is easily fixed by blowing on it then shoving it back in',
   ];
-  return tagLines[Math.floor(Math.random() * tagLines.length)];
+  return tagLines;
+  // return tagLines[Math.floor(Math.random() * tagLines.length)];
 };
 
 
