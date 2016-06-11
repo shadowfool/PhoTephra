@@ -20,6 +20,7 @@ class App extends React.Component {
 
     this.state = {
       photos: {},
+      // quotes: [],
       quotes: [],
       view: 'login',
       toggle: '',
