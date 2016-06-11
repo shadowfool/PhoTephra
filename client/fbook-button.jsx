@@ -38,9 +38,9 @@ class FacebookButton extends React.Component {
 
   
   checkLoginState() {
-    
     FB.getLoginStatus((response) => {
       if (response.status === 'connected') {
+        console.log('fb res:', response.getUserID);
         this.setState({ authenticated: true });
                 this.props.getImages();
                 this.props.setView('slides');
@@ -48,7 +48,7 @@ class FacebookButton extends React.Component {
         FB.login((response) => {
           let access_token = response.authResponse.accessToken;
           if (response.authResponse) {
-            FB.api('/me', () => {
+            FB.api('/me', (response) => {
               this.setState({ authenticated: true });
               $.post('/signin', { name: response.name, userId: response.id, access_token: access_token }).done(() => {
                 window.fbId = response.id;
