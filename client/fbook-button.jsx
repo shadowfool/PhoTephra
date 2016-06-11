@@ -3,7 +3,7 @@ import $ from 'jquery';
 import Promise from 'bluebird';
 import { hashHistory } from 'react-router';
 
-
+ 
 class FacebookButton extends React.Component {
   constructor(props) {
     super(props);
@@ -42,10 +42,9 @@ class FacebookButton extends React.Component {
       if (response.status === 'connected') {
         this.props.setUsersName(response.name);
         this.setState({ authenticated: true });
-                this.props.getImages();
-                this.props.getQuotes();
-                this.props.setView('loading');
-
+        this.props.getImages();
+        this.props.getQuotes();
+        this.props.setView('loading');
       } else {
         this.props.getQuotes();
         FB.login((response) => {
