@@ -27,8 +27,9 @@ const testData = [ { username: 'Steven',
 //   "https://scontent.xx.fbcdn.net/v/t1.0-9/10372539_10202332334659952_3436401212391021871_n.jpg?oh=33c969e2bb49e78a5e7dc6da2731470a&oe=57CBDCF9#.jpg"
 const Profiles = (props) => (
   <div>
-    <h1> This is where the profiels go </h1>
-    {testData.map(({ username, headshot, professional, athletic, adventurous, quote }) => {
+  {console.log('my profiles', props.profiles)}
+    <h1 className='center-text'> Your Saved Profiles </h1>
+    {props.profiles.map(({ username, headshot, professional, athletic, adventurous, quote }) => {
       return (<div className="final-profile-container">
         <div className="final-profile-images-container">
           <div className="sq-pic-left">

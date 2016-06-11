@@ -17,6 +17,7 @@ class App extends React.Component {
     this.setView = this.setView.bind(this);
     this.setToggle = this.setToggle.bind(this);
     this.setUsersName = this.setUsersName.bind(this);
+    this.getProfiles = this.getProfiles.bind(this);
 
     this.state = {
       photos: {},
@@ -52,6 +53,7 @@ class App extends React.Component {
     this.setState({ usersName });
   }
   getImages() {
+    console.log('getting images')
     const end = new Date();
     const start = new Date(end);
     start.setFullYear(end.getFullYear() - 2);
@@ -65,7 +67,7 @@ class App extends React.Component {
     };
 
     FB.api(`me/photos?type=tagged&fields=images,created_time&limit=${max}&until=${formatDate(end)}&since=${formatDate(start)}`, response => {
-      console.log(response);
+      console.log('res', response)
       // includes filtering out links with '&' as this seems to cause an issue for calrifai api.
       let imagesArray = response.data.map((item) => {
         for (let i = 0; i < item.images.length; i++) {
@@ -88,6 +90,7 @@ class App extends React.Component {
         contentType: 'application/json',
       })
       .done((categorizedImages) => {
+        console.log('pinged db')
         console.log(categorizedImages);
         this.setState({ images: categorizedImages });
         console.log('hi');
@@ -98,13 +101,14 @@ class App extends React.Component {
   }
 
   getProfiles() {
+    console.log('getting profiles');
     $.get({
-      url: 'api/profiles',
+      url: 'api/save',
       data: { username: this.state.usersName },
       contentType: 'application/json',
     })
     .done((profiles) => {
-      console.log(profiles);
+      console.log('retreived profiles from get', profiles);
       this.setState({ profiles });
     })
     .fail((err) => console.error(err));
@@ -112,6 +116,7 @@ class App extends React.Component {
 
   getQuotes() {
     const that = this;
+    console.log('getting')
     $.get({
       url: 'api/quotes',
       contentType: 'application/json',
@@ -138,6 +143,7 @@ class App extends React.Component {
         getImages={this.getImages}
         getQuotes={this.getQuotes}
         setUsersName={this.setUsersName}
+        getProfiles={this.getProfiles}
       />),
       // slides: (<Slides photos={this.state.photos} />),
       slides: (
@@ -177,7 +183,17 @@ class App extends React.Component {
         <Loading />
       ),
       profiles: (
-        <Profiles profiles={this.state.profiles} />
+        <div id="wrapper" className={this.state.toggle}>
+          <Nav setView={this.setView} />
+          <div id="page-content-wrapper">
+            <div className="horizontalBar">
+              <button id="menu-toggle" className="btn btn-lg" onClick={this.setToggle}>
+                <span id="hamburger" className="glyphicon glyphicon-menu-hamburger"></span>
+              </button>
+            </div>
+           <Profiles profiles={this.state.profiles} />
+           </div>
+        </div>
       ),
     };
     return (<div>{views[this.state.view]}</div>);

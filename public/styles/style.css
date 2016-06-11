@@ -9,7 +9,9 @@
   overflow-x: hidden; 
   background-color:black;
 }
-
+.center-text{
+  text-align: center;
+}
 .page-title {
   margin-top: 70px;
   background-color: rgba(10,10,10,0.6);

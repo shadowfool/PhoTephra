@@ -14,6 +14,7 @@ const Login = (props) => (
           getImages={props.getImages}
           getQuotes={props.getQuotes}
           setUsersName={props.setUsersName}
+          getProfiles={props.getProfiles}
         />
       </div>
     </div>
@@ -24,6 +25,7 @@ Login.propTypes = {
   getImages: React.PropTypes.func,
   getQuotes: React.PropTypes.func,
   setUsersName: React.PropTypes.func,
+  getProfiles: React.PropTypes.func,
 };
 export default Login;
 

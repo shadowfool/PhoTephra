@@ -44,6 +44,7 @@ class FacebookButton extends React.Component {
         this.setState({ authenticated: true });
         this.props.getImages();
         this.props.getQuotes();
+        this.props.getProfiles();
         this.props.setView('loading');
       } else {
         this.props.getQuotes();
@@ -55,6 +56,7 @@ class FacebookButton extends React.Component {
               this.setState({ authenticated: true });
               this.props.setUsersName(response.name);
               this.props.getImages();
+              this.props.getProfiles();
               this.props.setView('loading');
             });
           } else {
@@ -99,5 +101,6 @@ FacebookButton.propTypes = {
   getImages: React.PropTypes.func,
   getQuotes: React.PropTypes.func,
   setUsersName: React.PropTypes.func,
+  getProfiles: React.PropTypes.func,
 };
 export default FacebookButton;
