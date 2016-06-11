@@ -95,3 +95,33 @@ module.exports.getQuotes = {
     res.json(helpers.generateTagline());
   },
 };
+
+module.exports.save = {
+  get(req, res) {
+    helpers.getProfile(req.body, (err, profile) => {
+      if (err) {
+        console.log(err);
+      }
+
+      res.json(profile);
+    });
+  },
+  post(req, res) {
+    const username = req.body.username;
+    const headshot = req.body.headshot;
+    const athletic = req.body.athletic;
+    const professional = req.body.professional;
+    const adventurous = req.body.adventurous;
+    const quote = req.body.quote;
+
+    helpers.postProfile(username, headshot, athletic, professional, adventurous, quote, (err, success) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log('Posted profile.');
+      res.send();
+    });
+  },
+};
+
+
