@@ -16,19 +16,20 @@
   box-shadow: 1px 2px 2px 3px rgba(0, 0, 0, 0.15);
 }
 .photoContainer{
-  display:block;
+  display: block;
   width: 100%;
   /*overflow: hidden;*/
 }
 .photo{
-  background-size: 'cover';
+  background-size: cover;
+  background-position: center top;
+
   /*border-radius: 1;*/
   /*border-style: solid;*/
   /*border-width: 1.5px;*/
   /*border-color: black;*/
   float: 'left';
   height: 100%;
-  margin: 5;
   /*overflow: 'hidden';*/
   width: 100%;
   display: inline;
@@ -43,10 +44,10 @@
   border-width: 1.5px;
   border-color: black;
   float: 'left';
-  height: 45;
-  margin: 5;
+  height: 45px;
+  margin: 5px;
   overflow: 'hidden';
-  width: 45;
+  width: 45px;
   display: inline;
   box-shadow: .5px 3px 2px .5px rgba(0, 0, 0, 0.15);
 }
@@ -70,10 +71,10 @@
 }
 
 .carouselContainer {
-  height: 60%;
   margin: 0 auto;
   padding: 40px;
-  width: 80%;
+  width: 500px;
+  height: 500px;
   color: #333;
 }
 
@@ -141,4 +142,78 @@
 .viewport-slider-paginator-bullet.is-active {
   opacity: 1;
   visibility:hidden !important;
+}
+.final-profile-container {
+  width: 350px;
+  background-color: #D4D4EB;
+  padding: 0;
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 1px 2px 2px 3px rgba(0, 0, 0, 0.15);
+  margin-bottom: 25px;
+}
+.final-profile-images-container {
+  height: 350px;
+  width: 350px;
+  position: relative;
+}
+.square-pic {
+  width: 100%;
+  padding-bottom: 100%;
+  overflow: crop;
+  background-image: url('https://scontent.xx.fbcdn.net/v/t1.0-9/10372539_10202332334659952_3436401212391021871_n.jpg?oh=33c969e2bb49e78a5e7dc6da2731470a&oe=57CBDCF9#.jpg');
+  background-size: cover;
+  background-position: center top;
+  border-radius: 5px;
+  bottom: 0px;
+}
+.sq-pic-left {
+  position: absolute;
+  top: 4%;
+  left: 4%;
+  width: 60%;
+  height: 60%;
+}
+.sq-pic-right-top {
+  position: absolute;
+  top: 4%;
+  right: 4%;
+  width: 28%;
+  height: 28%;
+}
+.sq-pic-right-middle {
+  position: absolute;
+  top: 36%;
+  right: 4%;
+  width: 28%;
+  height: 28%;
+}
+.sq-pic-right-bottom {
+  position: absolute;
+  top: 68%;
+  right: 4%;
+  width: 28%;
+  height: 28%;
+}
+.profile-text, .profile-text-title {
+  font-size: 16px;
+}
+.profile-text-title, .profile-text {
+  padding: 0 4%;
+  text-align: left;
+}
+.profile-text-title {
+  margin-top: -8px;
+  text-align: left;
+  font-weight: bold;
+
+}
+.profile-text {
+  margin-top: 7px;
+  background-color: white;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+.image-slide-container {
+  height: 100%;
 }
