@@ -98,7 +98,8 @@ module.exports.getQuotes = {
 
 module.exports.save = {
   get(req, res) {
-    helpers.getProfile(req.body, (err, profile) => {
+    console.log('request', req.query.username);
+    helpers.getProfile(req.query.username, (err, profile) => {
       if (err) {
         console.log(err);
       }

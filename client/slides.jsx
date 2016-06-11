@@ -68,7 +68,7 @@ class Slides extends React.Component {
       quote: this.state.userSelections.quote,
     };
     $.post({
-      url: 'api/saveProfile',
+      url: 'api/save',
       data: JSON.stringify(profile),
       contentType: 'application/json',
     }).done(() => {
