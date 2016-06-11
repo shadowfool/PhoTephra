@@ -29,6 +29,7 @@ class Slides extends React.Component {
         adventurous: 0,
         quote: 'This is my profile text',
       },
+      quoteSelected: '',
     };
   } 
 
@@ -41,9 +42,20 @@ class Slides extends React.Component {
 
   setQuote(event) {
     event.preventDefault();
-    const userSelections = this.state.userSelections;
-    userSelections.quote = event.target.value;
-    this.setState({ userSelections });
+
+    const currentState = this.state;
+    currentState.quoteSelected = event.target.value;
+    currentState.userSelections.quote = event.target.value;
+    this.setState({ currentState });
+  }
+
+  innerClassHandler(quote) {
+    let selection = '';
+    if (quote === this.state.quoteSelected) {
+      selection = 'active';
+    }
+
+    return `quotes ${selection}`;
   }
 
   postProfile() {
@@ -101,23 +113,22 @@ class Slides extends React.Component {
             />
           )).concat([
             (
-              <div itemStyle={{ backgroundColor: 'grey' }}>
+              <div itemStyle={{ backgroundColor: '#B530E5' }}>
                 <div className="Aligner centering text-center">
                   <div className="col-md-8 choiceAligner choiceContainer">
                     <div className="content h1">
                       <h1>Pick Your Tagline</h1>
                       <div className="list-group">
                         {this.props.quotes.map(quote =>
-                          <div className="list-group-button btn-block quoteContainer">
-                            <button
-                              onClick={this.setQuote}
-                              type="button"
-                              className="quotes"
-                              value={quote}
-                            >
+                          <button
+                            className="list-group-item quoteContainer quotes"
+                            onClick={this.setQuote}
+                            type="button"
+                            
+                            value={quote}
+                          >
                               {quote}
-                            </button>
-                          </div>
+                          </button>
                           )}
                       </div>
                     </div>
