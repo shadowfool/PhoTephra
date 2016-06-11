@@ -165,16 +165,3 @@ class App extends React.Component {
 
 }
 ReactDOM.render(<App />, document.getElementsByClassName('mounting')[0]);
-// ReactDOM.render(<App />, document.body);
-
-
-// render((
-//   <Router history={hashHistory}>
-//     <Route path="/" component={Login} />
-//     <Route path="/login" component={Login} />
-//     <Route component={Main}>
-//       <Route path="create" component={Form} />
-//       <Route path="/slides" component={Slides} />
-//     </Route>
-//   </Router>
-//   ), document.getElementsByClassName('mounting')[0]);

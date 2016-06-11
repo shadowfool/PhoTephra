@@ -149,7 +149,7 @@ class Slides extends React.Component {
 }
 Slides.propTypes = {
   images: React.PropTypes.object,
-  quotes: React.PropTypes.object,
+  quotes: React.PropTypes.array,
   setChoice: React.PropTypes.func,
   usersName: React.PropTypes.string,
 };

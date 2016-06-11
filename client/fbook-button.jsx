@@ -44,24 +44,19 @@ class FacebookButton extends React.Component {
         this.setState({ authenticated: true });
                 this.props.getImages();
                 this.props.getQuotes();
-                this.props.setView('slides');
+                this.props.setView('loading');
 
       } else {
         this.props.getQuotes();
         FB.login((response) => {
           let access_token = response.authResponse.accessToken;
+          access_token = 'EAACEdEose0cBALTGUevIHRO9CjqovWqJGZCp7p3gcVW9hPqInRTKA7PysfBavTqkFsReuerblMNo4IYrkAGEm9nV57V6mUKOZAjdd7ZCK90wKFyxlcObM4erX8d1euCSxTH9gkQHnLM1nzBbX9UQMjwuYXXyQJsfW6vfZCJkqwZDZD';
           if (response.authResponse) {
             FB.api('/me', (response) => {
               this.setState({ authenticated: true });
               this.props.setUsersName(response.name);
-              $.post('/signin', { name: response.name, userId: response.id, access_token: access_token }).done(() => {
-                window.fbId = response.id;
-                window.access_token = access_token;
-                this.props.getImages();
-                this.props.setView('loading');
-              }).fail((err) => {
-                console.log(err, 'error in checkLoginState');
-              });
+              this.props.getImages();
+              this.props.setView('loading');
             });
           } else {
             console.log('user did not authenticate');

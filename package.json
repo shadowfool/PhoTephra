@@ -24,24 +24,18 @@
   "dependencies": {
     "bluebird": "^3.4.0",
     "body-parser": "^1.15.1",
-    "bookshelf": "^0.9.1",
     "clarifai": "^0.4.0",
-    "dom": "0.0.3",
-    "express": "^4.4.5",
-    "jquery": "^2.2.4",
-    "knex": "^0.10.0",
+    "express": "^4.13.4",
+    "jquery": "^3.0.0",
     "lodash": "^4.13.1",
     "mongoose": "^4.4.20",
-    "mysql": "^2.10.2",
     "path": "^0.12.7",
-    "react": "^15.1.0",
+    "react": "^0.14.8",
     "react-bootstrap": "^0.29.4",
     "react-dom": "^15.1.0",
-    "react-images": "^0.4.6",
     "react-router": "^2.4.1",
     "react-slick": "^0.12.2",
-    "react-viewport-slider": "0.0.9",
-    "request": "^2.72.0"
+    "react-viewport-slider": "0.0.9"
   },
   "babel": {
     "presets": [
