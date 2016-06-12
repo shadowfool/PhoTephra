@@ -10,13 +10,20 @@
 
 ##Project Overview <a name="Project-Overview"></a>
 
-Most people have hundreds of photos stored in countless websites. It takes a significant amount of time to scroll through all of your photos to find your best memories from years ago. With Foto Time, we give you access to your memories. Choose a time range and we'll pick out a few photos from that time period. All of your photo stories are saved with Foto Time so you can review them anytime. 
+
+Improve your online dating profile by employing the best practices. Create a well balanced profile by picking a portrait, professional, athletic, and adventurous photo to get the attention of your next true love. Pick a tagline to populate your tinder profile with to get that cutie to swipe right when she reads your witty tagline.
+
+## Project Features:
+- Totally redone front end with slide format, about us pages, carousel picture viewer,  etc.
+- Backend grabs tags from ML startup Clarifai’s API to automatically tag photos. 
+- Backend includes automatic categorizing of photos into portrait, professional, athletic, and adventurous buckets.
+- Backend includes memoization of already-tagged Clarifai photos
 
 ### Login with Facebook:
 ![login](https://cloud.githubusercontent.com/assets/17868916/15845438/f1518f9c-2c27-11e6-8f01-d8d4ed98cc33.png)
-### See your stories:
+### Pick Your Photos:
 ![stories] (https://cloud.githubusercontent.com/assets/17868916/15845440/f15528dc-2c27-11e6-8a64-2fd9fdd9ed69.png)
-### Create a new story:
+### Generate Your Profile:
 ![create-new](https://cloud.githubusercontent.com/assets/17868916/15845439/f152baa2-2c27-11e6-944e-e518f249d792.png)
 
 ## Getting Started <a name="Getting-Started"></a>
@@ -29,41 +36,6 @@ Most people have hundreds of photos stored in countless websites. It takes a sig
     $ npm install; 
     ```
 
-### Setup Database
-
-1. Initialize a mySQL server:
-
-    ```
-    $ mysql.server start
-    Starting mySQL
-      SUCCESS!
-    ```
-1. Start a mySQL server with in the terminal (by default there is no password):
-
-    ```
-    $ mysql -u root -p
-    ```
-2. Create a database called, `fotos`. For more information, visit this [great tutorial](https://www.digitalocean.com/community/tutorials/a-basic-mysql-tutorial):
-
-    ```
-    mysql> CREATE DATABASE fotos;
-    ```
-3. Open up the database:
-
-    ```
-    mysql> USE fotos;
-    ```
-4. Create account and specifiy privileges. Here, we will be creating an `admin` account with the password `formidable`, connection from `localhost` and all access to the database, fotos. More information about users and privileges can be found [here](http://dev.mysql.com/doc/refman/5.7/en/adding-users.html "mysql Docs") AND [here](https://www.digitalocean.com/community/tutorials/how-to-create-a-new-user-and-grant-permissions-in-mysql "Digital Ocean's How-to")
-
-    ```
-    mysql> CREATE USER 'admin'@'localhost' IDENTIFIED BY 'formidable';
-    mysql> GRANT ALL PRIVILEGES ON fotos.* TO 'admin'@'localhost';
-    ```
-To see privileges on the account you've just created:
-
-    ```
-    mysql> SHOW GRANTS FOR 'admin'@'localhost';
-    ```
 ### Start server
 
 1. Start the server by running the following command from the root directory:
@@ -95,15 +67,17 @@ Or
 #### Front end: 
 - React
 - Babel
-- React Router
 - React Bootstrap
 - Facebook Graph API/SDK
+- Clarifai API
+- React Slick
+
+
 
 #### Back end: 
 - Express
 - Node
-- Bookshelf/Knex
-- MySQL
+- MongoDB
 
 #### Database Schema:
 
@@ -164,3 +138,4 @@ Product Manager: [Austin Baltes](https://github.com/austinba)
 ## Contributing <a name="Contributing"></a>
 
 See our contributing guide to get started [here](CONTRIBUTING.md)
+
