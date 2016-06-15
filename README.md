@@ -19,13 +19,6 @@ Improve your online dating profile by employing the best practices. Create a wel
 - Backend includes automatic categorizing of photos into portrait, professional, athletic, and adventurous buckets.
 - Backend includes memoization of already-tagged Clarifai photos
 
-### Login with Facebook:
-![login](https://cloud.githubusercontent.com/assets/17868916/15845438/f1518f9c-2c27-11e6-8f01-d8d4ed98cc33.png)
-### Pick Your Photos:
-![stories] (https://cloud.githubusercontent.com/assets/17868916/15845440/f15528dc-2c27-11e6-8a64-2fd9fdd9ed69.png)
-### Generate Your Profile:
-![create-new](https://cloud.githubusercontent.com/assets/17868916/15845439/f152baa2-2c27-11e6-944e-e518f249d792.png)
-
 ## Getting Started <a name="Getting-Started"></a>
 
 ### Project Setup 
